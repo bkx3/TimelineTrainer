@@ -15,7 +15,7 @@ struct ContentView: View {
             //Clock goes here
             
             Text("20:43")
-                .font(.system(size: 150))
+                .font(.system(size: 150, design: .monospaced))
                 .fontWeight(.black)
                 .frame(minWidth: 0, maxWidth: .infinity)
                 
@@ -58,14 +58,84 @@ struct ContentView: View {
                 
                 Image(systemName:"gear")
                 .resizable()
-                    .aspectRatio(contentMode: .fill)
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 100, height: 100)
-                    .foregroundColor(Color(#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)))
+                .foregroundColor(Color(#colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)))
+                    .padding()
+           
                 
                 Spacer()
             }
+                
+                //that was the end of the HStack full of buttons
+                
+                
         .frame(width: 800)
-               Spacer()
+            
+            //welcome to the timeline
+            
+            ZStack {
+                
+                HStack {
+                    Circle()
+                        .frame(height: 25)
+                    
+                    Circle()
+                    .frame(height: 25)
+                    
+                    Circle()
+                    .frame(height: 25)
+                    
+                    Circle()
+                    .frame(height: 25)
+                    
+                    Circle()
+                    .frame(height: 25)
+                }
+                
+                Rectangle()
+                    .frame(height: 8)
+            }
+            .padding(.all)
+            
+            Spacer()
+            
+            //this is the vstack full of records
+            VStack(alignment: .trailing) {
+                HStack {
+                    Text("Fastest")
+                        .font(.system(size: 50))
+                        .multilineTextAlignment(.trailing)
+                        .padding(.trailing)
+                    Text("03:15")
+                        .font(.system(size: 50, design: .monospaced))
+                        .multilineTextAlignment(.leading)
+                }
+                
+                HStack {
+                    Text("Current")
+                        .font(.system(size: 50))
+                        .multilineTextAlignment(.trailing)
+                        .padding(.trailing)
+                    Text("03:15")
+                        .font(.system(size: 50, design: .monospaced))
+                        .multilineTextAlignment(.leading)
+                }
+                
+                HStack {
+                    Text("Average")
+                        .font(.system(size: 50))
+                        .multilineTextAlignment(.trailing)
+                        .padding(.trailing)
+                    Text("03:15")
+                        .font(.system(size: 50, design: .monospaced))
+                        .multilineTextAlignment(.leading)
+                }
+                
+                
+            }
+            
+            Spacer()
         }
      
     }
