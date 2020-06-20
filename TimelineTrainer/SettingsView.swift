@@ -13,7 +13,7 @@ struct MenuView: View {
     var body: some View {
         VStack {
             Spacer()
-            VStack (spacing: 16) {
+            VStack (spacing: 10) {
                 
                 
                 Text("Timed Workout")
@@ -26,7 +26,6 @@ struct MenuView: View {
                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                 Text("Goal: 25m 00s")
                 }
-                .padding(.vertical)
                 
                 
               Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {

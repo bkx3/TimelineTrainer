@@ -9,12 +9,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var showSettings = false
+    @State var viewState = CGSize.zero
+
+
+    
     var body: some View {
         ZStack {
-//            Color.black
-//                       .edgesIgnoringSafeArea(.all)
-            
-            VStack(spacing: 2) {
+
+           VStack(spacing: 2) {
                 
                 //Clock goes here
                 
@@ -77,7 +80,7 @@ struct ContentView: View {
                 Spacer()
 
                     
-                    Button(action:{}){
+                    Button(action:{self.showSettings.toggle()}){
                         Image(systemName: "gear")
                         .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -173,8 +176,31 @@ struct ContentView: View {
                 
                 Spacer()
             }
+            
+            MenuView()
+                           .background(Color.black.opacity(0.001))
+                           .offset(y: showSettings ? 0 : 900)
+                           .offset(y: viewState.height)
+                           .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+                           .onTapGesture {
+                               self.showSettings.toggle()
+                       }
+                       .gesture(
+                           DragGesture() .onChanged { value in
+                               self.viewState = value.translation
+                           }
+                               .onEnded { value in
+                                   if self.viewState.height > 50 {
+                                       self.showSettings = false
+                                   }
+                                       self.viewState = .zero
+                               }
+                               
+                       )
+            
         }
      
+        
         
     }
 }
