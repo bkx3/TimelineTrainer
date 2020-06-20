@@ -23,12 +23,13 @@ struct MenuView: View {
               
                 
                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                    Text("X rounds")
+                    Text("5 rounds")
                 }
                 
                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                 Text("Goal: 25m 00s")
                 }
+                .padding(.bottom)
                 
                 
               Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
