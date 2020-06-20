@@ -13,6 +13,7 @@
 		AB4204A2249C395F00CFE3FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB4204A1249C395F00CFE3FE /* Assets.xcassets */; };
 		AB4204A5249C395F00CFE3FE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB4204A4249C395F00CFE3FE /* Preview Assets.xcassets */; };
 		AB4204A8249C395F00CFE3FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB4204A6249C395F00CFE3FE /* LaunchScreen.storyboard */; };
+		E2DE6D0B249E6F30001CFEF5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE6D0A249E6F30001CFEF5 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		AB4204A4249C395F00CFE3FE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AB4204A7249C395F00CFE3FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB4204A9249C395F00CFE3FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E2DE6D0A249E6F30001CFEF5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 				AB42049B249C395D00CFE3FE /* AppDelegate.swift */,
 				AB42049D249C395D00CFE3FE /* SceneDelegate.swift */,
 				AB42049F249C395D00CFE3FE /* ContentView.swift */,
+				E2DE6D0A249E6F30001CFEF5 /* SettingsView.swift */,
 				AB4204A1249C395F00CFE3FE /* Assets.xcassets */,
 				AB4204A6249C395F00CFE3FE /* LaunchScreen.storyboard */,
 				AB4204A9249C395F00CFE3FE /* Info.plist */,
@@ -147,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB42049C249C395D00CFE3FE /* AppDelegate.swift in Sources */,
+				E2DE6D0B249E6F30001CFEF5 /* SettingsView.swift in Sources */,
 				AB42049E249C395D00CFE3FE /* SceneDelegate.swift in Sources */,
 				AB4204A0249C395D00CFE3FE /* ContentView.swift in Sources */,
 			);
