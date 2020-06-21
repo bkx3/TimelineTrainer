@@ -12,14 +12,33 @@ struct ContentView: View {
     @State var showSettings = false
     @State var viewState = CGSize.zero
 
-
+    //Timer logic
+    @State var startDate = Date()
+    @State var currentDate = Date()
+    @State var elapsed: (Int, Int, Int) = (0,0,0)
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    //End timer logic
+    
     
     var body: some View {
         ZStack {
 
            VStack(spacing: 2) {
                                 
-            TimerView()
+            //Timer Text
+           Text("\(elapsed.1, specifier: "%02d"):\(elapsed.2, specifier: "%02d")")
+             .font(.system(size: 185, design: .monospaced))
+            .fontWeight(.semibold)
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                .onReceive(timer) { _ in
+                    self.currentDate = Date()
+                    let interval = Int(self.currentDate.timeIntervalSince(self.startDate))
+                    let hours = interval / 3600
+                    let minutes = (interval % 3600) / 60
+                    let seconds = (interval % 3600) % 60
+                    self.elapsed = (hours, minutes, seconds)
+                }
+
                 
             //TimerButtons()
             HStack {
@@ -91,8 +110,15 @@ struct ContentView: View {
                        
                    }
                                 
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+            Text("Temporary timer starter for dummies")
+            }
+            .padding(.top)
             
-            Text("balls")
+            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                       Text("Temporary timer stopper for dummies")
+                       }
+                       .padding(.top)
 
 //            .frame(width: 800)
                             
@@ -173,14 +199,7 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 
-struct TimerView: View {
-    var body: some View {
-        Text("20:43")
-            .font(.system(size: 191, design: .monospaced))
-            .fontWeight(.black)
-            .frame(minWidth: 0, maxWidth: .infinity)
-    }
-}
+
 
 
 struct TimelineView: View {
@@ -217,3 +236,7 @@ struct TimelineView: View {
         .padding(.all, 75)
     }
 }
+
+
+//LMAO timer logic
+
