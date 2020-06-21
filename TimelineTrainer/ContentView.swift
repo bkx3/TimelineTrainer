@@ -28,7 +28,7 @@ struct StopWatchButtonLeft : View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                   .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
-                  .frame(width: 64, height: 64)
+                  .frame(width: 50, height: 50)
                     .offset(x: 6)
                   
                   .overlay(
@@ -40,7 +40,7 @@ struct StopWatchButtonLeft : View {
                      .resizable()
                      .aspectRatio(contentMode: .fit)
                      .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                     .frame(width: 64, height: 64)
+                     .frame(width: 50, height: 50)
                      
                      
                      .overlay(
@@ -68,7 +68,7 @@ struct StopWatchButtonMiddle : View {
             }
         }) {
             if isPaused {
-               Text("Paused")
+               Text("Reset?")
                 .font(.largeTitle)
                        .fontWeight(.bold)
                       .foregroundColor(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)))
@@ -109,7 +109,8 @@ struct ContentView: View {
            VStack(spacing: 2) {
                                 
        Text(self.stopWatch.stopWatchTime)
-                           .font(.custom("courier", size: 70))
+                               .font(.system(size: 150, design: .monospaced))
+        .fontWeight(.medium)
                            .frame(width: UIScreen.main.bounds.size.width,
                                   height: 200,
                                   alignment: .center)
@@ -126,7 +127,7 @@ struct ContentView: View {
                         isPaused: self.stopWatch.isPaused())
                         .padding(.horizontal)
                     
-                    StopWatchButtonMiddle(actions: [self.stopWatch.start, self.stopWatch.lap],
+                    StopWatchButtonMiddle(actions: [self.stopWatch.reset, self.stopWatch.lap],
                     icon: ["arrow.counterclockwise", "plus"],
                     isPaused: self.stopWatch.isPaused())
                     .padding(.horizontal)
@@ -160,15 +161,7 @@ struct ContentView: View {
                        
                    }
             }
-            Button(action: {self.stopWatch.start()}) {
-            Text("Temporary timer starter for dummies")
-            }
-            .padding(.top)
-            
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                       Text("Temporary timer stopper for dummies")
-                       }
-                       .padding(.top)
+  
             
             VStack(alignment: .leading) {
                      Text("Rounds")
@@ -180,7 +173,8 @@ struct ContentView: View {
                              Text(lapItem.stringTime)
                          }
                      }
-                 }
+            }
+            .padding(.top)
 
 //            .frame(width: 800)
                             
