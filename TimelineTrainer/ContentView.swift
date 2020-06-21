@@ -7,37 +7,56 @@
 //
 
 import SwiftUI
+import Combine
+
+struct StopWatchButton : View {
+    var actions: [() -> Void]
+    var labels: [String]
+    var color: Color
+    var isPaused: Bool
+    
+    var body: some View {
+        let buttonWidth = (UIScreen.main.bounds.size.width / 2) - 12
+        
+        return Button(action: {
+            if self.isPaused {
+                self.actions[0]()
+            } else {
+                self.actions[1]()
+            }
+        }) {
+            if isPaused {
+                Text(self.labels[0])
+                    .foregroundColor(Color.white)
+                    .frame(width: buttonWidth,
+                           height: 50)
+            } else {
+                Text(self.labels[1])
+                    .foregroundColor(Color.white)
+                    .frame(width: buttonWidth,
+                           height: 50)
+            }
+        }
+        .background(self.color)
+    }
+}
 
 struct ContentView: View {
     @State var showSettings = false
     @State var viewState = CGSize.zero
+    
+    @ObservedObject var stopWatch = StopWatch()
 
-    //Timer logic
-    @State var startDate = Date()
-    @State var currentDate = Date()
-    @State var elapsed: (Int, Int, Int) = (0,0,0)
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    //End timer logic
-    
-    
     var body: some View {
         ZStack {
 
            VStack(spacing: 2) {
                                 
-            //Timer Text
-           Text("\(elapsed.1, specifier: "%02d"):\(elapsed.2, specifier: "%02d")")
-             .font(.system(size: 185, design: .monospaced))
-            .fontWeight(.semibold)
-                    .frame(minWidth: 0, maxWidth: .infinity)
-                .onReceive(timer) { _ in
-                    self.currentDate = Date()
-                    let interval = Int(self.currentDate.timeIntervalSince(self.startDate))
-                    let hours = interval / 3600
-                    let minutes = (interval % 3600) / 60
-                    let seconds = (interval % 3600) % 60
-                    self.elapsed = (hours, minutes, seconds)
-                }
+       Text(self.stopWatch.stopWatchTime)
+                           .font(.custom("courier", size: 70))
+                           .frame(width: UIScreen.main.bounds.size.width,
+                                  height: 300,
+                                  alignment: .center)
 
                 
             //TimerButtons()
@@ -45,7 +64,7 @@ struct ContentView: View {
                        
                        Spacer()
                        
-                       Button(action:{}){
+                       Button(action:{self.stopWatch.pause()}){
                            Image(systemName: "pause")
                                .resizable()
                                .aspectRatio(contentMode: .fit)
@@ -65,7 +84,7 @@ struct ContentView: View {
                        
                        
                        //the green New Round Button
-                       Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                       Button(action: {self.stopWatch.lap()}) {
                            Text("NEW ROUND")
                                .font(.largeTitle)
                                .fontWeight(.bold)
@@ -110,7 +129,7 @@ struct ContentView: View {
                        
                    }
                                 
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+            Button(action: {self.stopWatch.start()}) {
             Text("Temporary timer starter for dummies")
             }
             .padding(.top)
@@ -119,6 +138,18 @@ struct ContentView: View {
                        Text("Temporary timer stopper for dummies")
                        }
                        .padding(.top)
+            
+            VStack(alignment: .leading) {
+                     Text("Laps")
+                         .font(.title)
+                         .padding()
+
+                     List {
+                         ForEach(self.stopWatch.laps, id: \.uuid) { (lapItem) in
+                             Text(lapItem.stringTime)
+                         }
+                     }
+                 }
 
 //            .frame(width: 800)
                             
