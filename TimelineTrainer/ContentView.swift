@@ -9,14 +9,12 @@
 import SwiftUI
 import Combine
 
-struct StopWatchButton : View {
-    var actions: [() -> Void]
-    var labels: [String]
-    var color: Color
+struct StopWatchButtonLeft : View {
+   var actions: [() -> Void]
+    var icon: [String]
     var isPaused: Bool
     
     var body: some View {
-        let buttonWidth = (UIScreen.main.bounds.size.width / 2) - 12
         
         return Button(action: {
             if self.isPaused {
@@ -26,18 +24,76 @@ struct StopWatchButton : View {
             }
         }) {
             if isPaused {
-                Text(self.labels[0])
-                    .foregroundColor(Color.white)
-                    .frame(width: buttonWidth,
-                           height: 50)
+                Image(systemName: (self.icon[0]))
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                  .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                  .frame(width: 64, height: 64)
+                    .offset(x: 6)
+                  
+                  .overlay(
+                      Circle()
+                          .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                          .frame(width: 88, height: 88))
             } else {
-                Text(self.labels[1])
-                    .foregroundColor(Color.white)
-                    .frame(width: buttonWidth,
-                           height: 50)
+                 Image(systemName: (self.icon[1]))
+                     .resizable()
+                     .aspectRatio(contentMode: .fit)
+                     .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+                     .frame(width: 64, height: 64)
+                     
+                     
+                     .overlay(
+                         Circle()
+                             .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
+                             .frame(width: 88, height: 88))
             }
         }
-        .background(self.color)
+       
+    }
+}
+
+struct StopWatchButtonMiddle : View {
+    var actions: [() -> Void]
+    var icon: [String]
+    var isPaused: Bool
+    
+    var body: some View {
+        
+        return Button(action: {
+            if self.isPaused {
+                self.actions[0]()
+            } else {
+                self.actions[1]()
+            }
+        }) {
+            if isPaused {
+               Text("Paused")
+                .font(.largeTitle)
+                       .fontWeight(.bold)
+                      .foregroundColor(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)))
+                      .frame(width: 350, height: 88)
+                  
+                  
+                  .overlay(
+                      RoundedRectangle(cornerRadius: 50)
+                          .stroke(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)), lineWidth: 6)
+                          .frame(width: 350, height: 88))
+            } else {
+                Text("New Round")
+                 .font(.largeTitle)
+                        .fontWeight(.bold)
+                       .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
+                     .frame(width: 350, height: 88)
+                     
+                     
+                     .overlay(
+                         RoundedRectangle(cornerRadius: 50)
+                             .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
+                             .frame(width: 350, height: 88))
+            }
+        }
+        
     }
 }
 
@@ -55,52 +111,27 @@ struct ContentView: View {
        Text(self.stopWatch.stopWatchTime)
                            .font(.custom("courier", size: 70))
                            .frame(width: UIScreen.main.bounds.size.width,
-                                  height: 300,
+                                  height: 200,
                                   alignment: .center)
 
                 
             //TimerButtons()
             HStack {
                        
-                       Spacer()
+        HStack{
+            
+            Spacer()
+                    StopWatchButtonLeft(actions: [self.stopWatch.start, self.stopWatch.pause],
+                        icon: ["play", "pause"],
+                        isPaused: self.stopWatch.isPaused())
+                        .padding(.horizontal)
+                    
+                    StopWatchButtonMiddle(actions: [self.stopWatch.start, self.stopWatch.lap],
+                    icon: ["arrow.counterclockwise", "plus"],
+                    isPaused: self.stopWatch.isPaused())
+                    .padding(.horizontal)
                        
-                       Button(action:{self.stopWatch.pause()}){
-                           Image(systemName: "pause")
-                               .resizable()
-                               .aspectRatio(contentMode: .fit)
-                               .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                               .frame(width: 64, height: 40)
-                               
-                               
-                               .overlay(
-                                   Circle()
-                                       .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
-                                       .frame(width: 88, height: 88)
-                           )}
-                           .padding(.trailing)
-                       
-                       Spacer()
-                       
-                       
-                       
-                       //the green New Round Button
-                       Button(action: {self.stopWatch.lap()}) {
-                           Text("NEW ROUND")
-                               .font(.largeTitle)
-                               .fontWeight(.bold)
-                               
-                               .foregroundColor(Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)))
-                               .padding()
-                               .overlay(
-                                   RoundedRectangle(cornerRadius: 50)
-                                       .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 5)
-                                       .frame(width: 400.0, height: 100.0)
-                           )
-                           
-                       }
-                       .frame(height: 88)
-                       
-                       Spacer()
+                 
                        
                        
                        Button(action:{
@@ -128,7 +159,7 @@ struct ContentView: View {
                        
                        
                    }
-                                
+            }
             Button(action: {self.stopWatch.start()}) {
             Text("Temporary timer starter for dummies")
             }
@@ -140,7 +171,7 @@ struct ContentView: View {
                        .padding(.top)
             
             VStack(alignment: .leading) {
-                     Text("Laps")
+                     Text("Rounds")
                          .font(.title)
                          .padding()
 
@@ -270,4 +301,5 @@ struct TimelineView: View {
 
 
 //LMAO timer logic
+
 
