@@ -191,14 +191,40 @@ struct ContentView: View {
                           alignment: .center)
                     
                     
+                    //adding fucky buttons
+                
+                    
+                    //origninal button
                     Button(action: self.timer.changeRunningState) {
                         if timer.isRunning {
                             Image(systemName: "pause.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+                            .frame(width: 50, height: 50)
+                            
+                            
+                            .overlay(
+                                Circle()
+                                    .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
+                                    .frame(width: 88, height: 88))
                         } else {
                             Image(systemName: "play.fill")
+                            .resizable()
+                              .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                                .frame(width: 50, height: 50)
+                                  .offset(x: 6)
+                                
+                                .overlay(
+                                    Circle()
+                                        .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                        .frame(width: 88, height: 88))
                         }
                     }.font(.largeTitle)
                     .animation(.default)
+                              
+                    
                         
                 }
             }
