@@ -9,6 +9,68 @@
 import SwiftUI
 import Combine
 
+class MKTimer: ObservableObject {
+    var startDate: Date
+    var currentDate: Date
+    var prevTime: TimeInterval = 0
+    
+    @Published var time: TimeInterval = 0
+    @Published var isRunning: Bool = false
+    
+    init() {
+        self.startDate = Date()
+        self.currentDate = Date()
+        self.time = 0
+    }
+    
+    func start() {
+        self.isRunning = true
+        self.startDate = Date()
+    }
+    
+    func pause() {
+        self.isRunning = false
+        self.prevTime = self.time
+    }
+    
+    func resume() {
+        self.startDate = Date()
+        self.isRunning = true
+    }
+    
+    func changeRunningState() {
+        if self.isRunning {
+            self.pause()
+        } else {
+            self.resume()
+        }
+    }
+    
+    func update() {
+        guard self.isRunning else { return }
+        self.currentDate = Date()
+        let currentInterval = self.currentDate.timeIntervalSince(self.startDate)
+        self.time = self.prevTime + currentInterval
+    }
+}
+
+extension MKTimer {
+    var timeComponents: DateComponents {
+        var components = DateComponents()
+        components.hour = 0
+        components.minute = 0
+        components.second = Int(time)
+        return components
+    }
+    
+    static var formatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        return formatter
+    }()
+}
+
 struct StopWatchButtonLeft : View {
    var actions: [() -> Void]
     var icon: [String]
@@ -97,203 +159,49 @@ struct StopWatchButtonMiddle : View {
     }
 }
 
+struct TimerView: View {
+    @ObservedObject var timer = MKTimer()
+    
+    let timePublisher = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    var body: some View {
+        VStack {
+            Text("\(self.timer.timeComponents, formatter: MKTimer.formatter)")
+        }
+        .onReceive(timePublisher) { _ in
+            self.timer.update()
+        }
+        .onAppear {
+            self.timer.start()
+        }
+    }
+}
+
 struct ContentView: View {
     @State var showSettings = false
     @State var viewState = CGSize.zero
     
-    @ObservedObject var stopWatch = StopWatch()
-
-    var body: some View {
-        ZStack {
-
-           VStack(spacing: 2) {
-                                
-       Text(self.stopWatch.stopWatchTime)
-                               .font(.system(size: 150, design: .monospaced))
-        .fontWeight(.medium)
-                           .frame(width: UIScreen.main.bounds.size.width,
-                                  height: 200,
-                                  alignment: .center)
-
-                
-            //TimerButtons()
-            HStack {
-                       
-        HStack{
-            
-            Spacer()
-                    StopWatchButtonLeft(actions: [self.stopWatch.start, self.stopWatch.pause],
-                        icon: ["play", "pause"],
-                        isPaused: self.stopWatch.isPaused())
-                        .padding(.horizontal)
-                    
-                    StopWatchButtonMiddle(actions: [self.stopWatch.reset, self.stopWatch.lap],
-                    icon: ["arrow.counterclockwise", "plus"],
-                    isPaused: self.stopWatch.isPaused())
-                    .padding(.horizontal)
-                       
-                 
-                       
-                       
-                       Button(action:{
-                          self.showSettings.toggle()
-                           
-                           
-                       })
-                       {
-                           Image(systemName: "gear")
-                               .resizable()
-                               .aspectRatio(contentMode: .fill)
-                               .foregroundColor(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)))
-                               .frame(width: 64, height: 64)
-                               
-                               
-                               .overlay(
-                                   Circle()
-                                       .stroke(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)), lineWidth: 6)
-                                       .frame(width: 88, height: 88)
-                           )}
-                           .padding(.leading)
-                       
-                       Spacer()
-                       
-                       
-                       
-                   }
+ @ObservedObject var timer = MKTimer()
+    
+        var body: some View {
+                VStack {
+                    TimerView(timer: timer)
+                    Button(action: self.timer.changeRunningState) {
+                        if timer.isRunning {
+                            Image(systemName: "pause.fill")
+                        } else {
+                            Image(systemName: "play.fill")
+                        }
+                    }.font(.largeTitle)
+                    .animation(.default)
+                        
+                }
             }
-  
-            
-            VStack(alignment: .leading) {
-                     Text("Rounds")
-                         .font(.title)
-                         .padding()
-
-                     List {
-                         ForEach(self.stopWatch.laps, id: \.uuid) { (lapItem) in
-                             Text(lapItem.stringTime)
-                         }
-                     }
-            }
-            .padding(.top)
-
-//            .frame(width: 800)
-                            
-            //TimelineView()
-
-                Spacer()
-                
-//                //this is the vstack full of records
-//                VStack(alignment: .trailing) {
-//                    HStack {
-//                        Text("Fastest")
-//                            .font(.system(size: 50))
-//                            .multilineTextAlignment(.trailing)
-//                            .padding(.trailing)
-//                        Text("03:15")
-//                            .font(.system(size: 50, design: .monospaced))
-//                            .multilineTextAlignment(.leading)
-//                    }
-//
-//                    HStack {
-//                        Text("Current")
-//                            .font(.system(size: 50))
-//                            .multilineTextAlignment(.trailing)
-//                            .padding(.trailing)
-//                        Text("03:15")
-//                            .font(.system(size: 50, design: .monospaced))
-//                            .multilineTextAlignment(.leading)
-//                    }
-//
-//                    HStack {
-//                        Text("Average")
-//                            .font(.system(size: 50))
-//                            .multilineTextAlignment(.trailing)
-//                            .padding(.trailing)
-//                        Text("03:15")
-//                            .font(.system(size: 50, design: .monospaced))
-//                            .multilineTextAlignment(.leading)
-//                    }
-//
-//
-//                }
-//
-//                Spacer()
-            }
-            
-            MenuView()
-                           .background(Color.black.opacity(0.001))
-                           .offset(y: showSettings ? 0 : 900)
-                           .offset(y: viewState.height)
-                           .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
-                           .onTapGesture {
-                               self.showSettings.toggle()
-                       }
-                       .gesture(
-                           DragGesture() .onChanged { value in
-                               self.viewState = value.translation
-                           }
-                               .onEnded { value in
-                                   if self.viewState.height > 50 {
-                                       self.showSettings = false
-                                   }
-                                       self.viewState = .zero
-                               }
-
-                       )
-
         }
-     
-        
-        
-    }
-}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
-
-
-
-
-
-struct TimelineView: View {
-    var body: some View {
-        ZStack {
-            
-            HStack {
-                Circle()
-                    .frame(height: 25)
-                
-                Circle()
-                    .frame(height: 25)
-                
-                Circle()
-                    .stroke(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)), lineWidth: 6)
-                    .frame(height: 25)
-                
-                Circle()
-                    .stroke(Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)), lineWidth: 6)
-                    .frame(height: 25)
-                
-                
-                Circle()
-                    .overlay(
-                        Circle()
-                            .stroke(Color(.black),lineWidth: 6)
-                ).foregroundColor(.white)
-                    .frame(height:25)
-            }
-            
-            Rectangle()
-                .frame(height: 8)
-        }
-        .padding(.all, 75)
-    }
-}
-
-
-//LMAO timer logic
-
 
