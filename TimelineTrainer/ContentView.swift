@@ -78,51 +78,6 @@ extension MKTimer {
     }()
 }
 
-
-struct StopWatchButtonMiddle : View {
-    var actions: [() -> Void]
-    var icon: [String]
-    var isPaused: Bool
-    
-    var body: some View {
-        
-        return Button(action: {
-            if self.isPaused {
-                self.actions[0]()
-            } else {
-                self.actions[1]()
-            }
-        }) {
-            if isPaused {
-               Text("Reset?")
-                .font(.largeTitle)
-                       .fontWeight(.bold)
-                      .foregroundColor(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)))
-                      .frame(width: 350, height: 88)
-                  
-                  
-                  .overlay(
-                      RoundedRectangle(cornerRadius: 50)
-                          .stroke(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)), lineWidth: 6)
-                          .frame(width: 350, height: 88))
-            } else {
-                Text("New Round")
-                 .font(.largeTitle)
-                        .fontWeight(.bold)
-                       .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
-                     .frame(width: 350, height: 88)
-                     
-                     
-                     .overlay(
-                         RoundedRectangle(cornerRadius: 50)
-                             .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
-                             .frame(width: 350, height: 88))
-            }
-        }
-        
-    }
-}
-
 struct TimerView: View {
     @ObservedObject var timer = MKTimer()
     
@@ -264,6 +219,94 @@ struct ContentView: View {
             } //end view
         } //end ContentView
 
+struct MenuView: View {
+@ObservedObject var timer = MKTimer()
+    
+    var body: some View {
+         
+        
+        VStack {
+            Spacer()
+            VStack (spacing: 10) {
+                
+                Text("Timed Workout")
+                    .font(.largeTitle)
+                    .padding(.top)
+              
+                
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                    Text("5 rounds")
+                }
+                
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                Text("Goal: 25m 00s")
+                }
+                .padding(.bottom)
+                
+                
+              Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                          Text("Start in 10s")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                          
+                          .foregroundColor(Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)))
+                          .padding()
+                          .overlay(
+                              RoundedRectangle(cornerRadius: 50)
+                              .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 3)
+                                .frame(width: 150.0, height: 40.0)
+                          )
+                          
+              }
+              .padding(.vertical, 50.0)
+                          .frame(height: 22)
+                
+                
+                  Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                           Text("Start in 30s")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                           
+                           .foregroundColor(Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)))
+                           .padding()
+                           .overlay(
+                               RoundedRectangle(cornerRadius: 50)
+                                .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 3)
+                                .frame(width: 150.0, height: 40.0)
+                                       )
+                                       
+                  }
+                    Spacer()
+                  .padding(.top, 40.0)
+                    .frame(height: 22)
+                
+                Button(action: {self.timer.restart()}) {
+                  Text("Restart")
+                   .font(.headline)
+                   .fontWeight(.bold)
+                  
+                  .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+                  .padding()
+                  .overlay(
+                      RoundedRectangle(cornerRadius: 50)
+                       .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
+                       .frame(width: 150.0, height: 40.0)
+                              )
+                              
+         }
+                
+            }
+            .frame(maxWidth: 500)
+            .frame(height: 350)
+            .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(#colorLiteral(red: 0.8705882353, green: 0.8941176471, blue: 0.9450980392, alpha: 1))]), startPoint: .top, endPoint: .bottom))
+            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
+            .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)            .padding(.horizontal, 30)
+           Spacer()
+
+        }
+        .padding(.top, 30)
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
