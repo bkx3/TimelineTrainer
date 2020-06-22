@@ -71,49 +71,6 @@ extension MKTimer {
     }()
 }
 
-struct StopWatchButtonLeft : View {
-   var actions: [() -> Void]
-    var icon: [String]
-    var isPaused: Bool
-    
-    var body: some View {
-        
-        return Button(action: {
-            if self.isPaused {
-                self.actions[0]()
-            } else {
-                self.actions[1]()
-            }
-        }) {
-            if isPaused {
-                Image(systemName: (self.icon[0]))
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                  .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
-                  .frame(width: 50, height: 50)
-                    .offset(x: 6)
-                  
-                  .overlay(
-                      Circle()
-                          .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
-                          .frame(width: 88, height: 88))
-            } else {
-                 Image(systemName: (self.icon[1]))
-                     .resizable()
-                     .aspectRatio(contentMode: .fit)
-                     .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                     .frame(width: 50, height: 50)
-                     
-                     
-                     .overlay(
-                         Circle()
-                             .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
-                             .frame(width: 88, height: 88))
-            }
-        }
-       
-    }
-}
 
 struct StopWatchButtonMiddle : View {
     var actions: [() -> Void]
@@ -190,41 +147,62 @@ struct ContentView: View {
                           height: 200,
                           alignment: .center)
                     
-                    
-                    //adding fucky buttons
-                
-                    
-                    //origninal button
-                    Button(action: self.timer.changeRunningState) {
-                        if timer.isRunning {
-                            Image(systemName: "pause.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                            .frame(width: 50, height: 50)
-                            
-                            
-                            .overlay(
-                                Circle()
-                                    .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
-                                    .frame(width: 88, height: 88))
-                        } else {
-                            Image(systemName: "play.fill")
-                            .resizable()
-                              .aspectRatio(contentMode: .fit)
-                                .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                 
+                    HStack {
+                        Button(action: self.timer.changeRunningState) {
+                            if timer.isRunning {
+                                Image(systemName: "pause.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
                                 .frame(width: 50, height: 50)
-                                  .offset(x: 6)
+                                
                                 
                                 .overlay(
                                     Circle()
-                                        .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                        .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
                                         .frame(width: 88, height: 88))
+                            } else {
+                                Image(systemName: "play.fill")
+                                .resizable()
+                                  .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                                    .frame(width: 50, height: 50)
+                                    .offset(x: 6)
+                                    
+                                    .overlay(
+                                        Circle()
+                                            .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                            .frame(width: 88, height: 88))
+                            } //end else
                         }
-                    }.font(.largeTitle)
-                    .animation(.default)
-                              
+                        .animation(.default)
+                        
+                        
+                        //new button. useless button.
+                        
+                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                        Text("New Round")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
+                            .frame(width: 350, height: 88)
+                            
+                            .overlay(
+                            RoundedRectangle(cornerRadius: 50)
+                            .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
+                            .frame(width: 350, height: 88))
+                            
+                        }
+                        .padding(.all, 20.0)
                     
+                        //gear button
+                        
+                        
+                        
+                    } //end HStack
+                              
+                  Spacer()
                         
                 }
             }
