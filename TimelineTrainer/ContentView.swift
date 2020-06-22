@@ -198,6 +198,22 @@ struct ContentView: View {
                     
                         //gear button
                         
+                        Button(action:{
+                         self.showSettings.toggle()
+                      })
+                      {
+                          Image(systemName: "gear")
+                          .resizable()
+                          .aspectRatio(contentMode: .fill)
+                          .foregroundColor(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)))
+                          .frame(width: 64, height: 64)
+                          
+                          
+                          .overlay(
+                              Circle()
+                                  .stroke(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)), lineWidth: 6)
+                                  .frame(width: 88, height: 88)
+                          )}
                         
                         
                     } //end HStack
