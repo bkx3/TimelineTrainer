@@ -13,7 +13,6 @@ class MKTimer: ObservableObject {
     var startDate: Date
     var currentDate: Date
     var prevTime: TimeInterval = 0
-    var rounds = 0
     
     @Published var time: TimeInterval = 0
     @Published var isRunning: Bool = false
@@ -37,6 +36,13 @@ class MKTimer: ObservableObject {
     func resume() {
         self.startDate = Date()
         self.isRunning = true
+    }
+    
+    func restart(){
+        self.isRunning = false
+        self.startDate = Date()
+        self.currentDate = Date()
+        self.time = 0
     }
     
     func changeRunningState() {
@@ -140,6 +146,9 @@ struct ContentView: View {
     
  @ObservedObject var timer = MKTimer()
     
+    var rounds = 0
+
+    
         var body: some View {
             ZStack {
                 VStack {
@@ -158,12 +167,15 @@ struct ContentView: View {
                                     .aspectRatio(contentMode: .fit)
                                     .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
                                     .frame(width: 50, height: 50)
-                                    
-                                    
+                                      
+                                        
                                     .overlay(
                                         Circle()
                                             .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
                                             .frame(width: 88, height: 88))
+                                    .contentShape(Rectangle())
+                                    
+                                    
                                 } else {
                                     Image(systemName: "play.fill")
                                     .resizable()
@@ -174,16 +186,19 @@ struct ContentView: View {
                                         
                                         .overlay(
                                             Circle()
-                                                .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
-                                                .frame(width: 88, height: 88))
+                                            .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                            .frame(width: 88, height: 88))
+                                    .contentShape(Rectangle())
+
                                 } //end else
                             }
+                            .padding(.horizontal)
                             .animation(.default)
                             
                             
                             //new button. useless button.
                             
-                            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                            Button(action: {}) {
                             Text("New Round")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
@@ -196,7 +211,7 @@ struct ContentView: View {
                                 .frame(width: 350, height: 88))
                                 
                             }
-                            .padding(.all, 20.0)
+                            .padding(.all, 30.0)
                         
                             //gear button
                             
@@ -215,11 +230,13 @@ struct ContentView: View {
                                   Circle()
                                       .stroke(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)), lineWidth: 6)
                                       .frame(width: 88, height: 88)
-                              )}
+                            )}
+                                .padding(.horizontal)
+                            
                             
                             
                         } //end HStack
-                                  
+                           Text("\(rounds) Rounds Complete")
                       Spacer()
                             
                 }

@@ -10,8 +10,10 @@ import SwiftUI
 import Foundation
 
 struct MenuView: View {
-
+@ObservedObject var timer = MKTimer()
+    
     var body: some View {
+         
         
         VStack {
             Spacer()
@@ -66,7 +68,23 @@ struct MenuView: View {
                   }
                     Spacer()
                   .padding(.top, 40.0)
-                                       .frame(height: 22)
+                    .frame(height: 22)
+                
+                Button(action: {self.timer.restart()}) {
+                  Text("Restart")
+                   .font(.headline)
+                   .fontWeight(.bold)
+                  
+                  .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+                  .padding()
+                  .overlay(
+                      RoundedRectangle(cornerRadius: 50)
+                       .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
+                       .frame(width: 150.0, height: 40.0)
+                              )
+                              
+         }
+                
             }
             .frame(maxWidth: 500)
             .frame(height: 350)
