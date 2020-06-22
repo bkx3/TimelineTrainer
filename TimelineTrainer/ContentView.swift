@@ -13,6 +13,7 @@ class MKTimer: ObservableObject {
     var startDate: Date
     var currentDate: Date
     var prevTime: TimeInterval = 0
+    var rounds = 0
     
     @Published var time: TimeInterval = 0
     @Published var isRunning: Bool = false
@@ -140,87 +141,110 @@ struct ContentView: View {
  @ObservedObject var timer = MKTimer()
     
         var body: some View {
+            ZStack {
                 VStack {
-                    TimerView(timer: timer)
-                    .font(.system(size: 150, design: .monospaced))
-                       .frame(width: UIScreen.main.bounds.size.width,
-                          height: 200,
-                          alignment: .center)
-                    
-                 
-                    HStack {
-                        Button(action: self.timer.changeRunningState) {
-                            if timer.isRunning {
-                                Image(systemName: "pause.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                                .frame(width: 50, height: 50)
-                                
-                                
-                                .overlay(
-                                    Circle()
-                                        .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
-                                        .frame(width: 88, height: 88))
-                            } else {
-                                Image(systemName: "play.fill")
-                                .resizable()
-                                  .aspectRatio(contentMode: .fit)
-                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                        TimerView(timer: timer)
+                        .font(.system(size: 150, design: .monospaced))
+                           .frame(width: UIScreen.main.bounds.size.width,
+                              height: 200,
+                              alignment: .center)
+                        
+                     
+                        HStack {
+                            Button(action: self.timer.changeRunningState) {
+                                if timer.isRunning {
+                                    Image(systemName: "pause.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
                                     .frame(width: 50, height: 50)
-                                    .offset(x: 6)
+                                    
                                     
                                     .overlay(
                                         Circle()
-                                            .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                            .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
                                             .frame(width: 88, height: 88))
-                            } //end else
-                        }
-                        .animation(.default)
-                        
-                        
-                        //new button. useless button.
-                        
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                        Text("New Round")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
-                            .frame(width: 350, height: 88)
+                                } else {
+                                    Image(systemName: "play.fill")
+                                    .resizable()
+                                      .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                                        .frame(width: 50, height: 50)
+                                        .offset(x: 6)
+                                        
+                                        .overlay(
+                                            Circle()
+                                                .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                                .frame(width: 88, height: 88))
+                                } //end else
+                            }
+                            .animation(.default)
                             
-                            .overlay(
-                            RoundedRectangle(cornerRadius: 50)
-                            .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
-                            .frame(width: 350, height: 88))
                             
-                        }
-                        .padding(.all, 20.0)
-                    
-                        //gear button
+                            //new button. useless button.
+                            
+                            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                            Text("New Round")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
+                                .frame(width: 350, height: 88)
+                                
+                                .overlay(
+                                RoundedRectangle(cornerRadius: 50)
+                                .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
+                                .frame(width: 350, height: 88))
+                                
+                            }
+                            .padding(.all, 20.0)
                         
-                        Button(action:{
-                         self.showSettings.toggle()
-                      })
-                      {
-                          Image(systemName: "gear")
-                          .resizable()
-                          .aspectRatio(contentMode: .fill)
-                          .foregroundColor(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)))
-                          .frame(width: 64, height: 64)
-                          
-                          
-                          .overlay(
-                              Circle()
-                                  .stroke(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)), lineWidth: 6)
-                                  .frame(width: 88, height: 88)
-                          )}
-                        
-                        
-                    } //end HStack
+                            //gear button
+                            
+                            Button(action:{
+                             self.showSettings.toggle()
+                          })
+                          {
+                              Image(systemName: "gear")
+                              .resizable()
+                              .aspectRatio(contentMode: .fill)
+                              .foregroundColor(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)))
+                              .frame(width: 64, height: 64)
                               
-                  Spacer()
-                        
+                              
+                              .overlay(
+                                  Circle()
+                                      .stroke(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)), lineWidth: 6)
+                                      .frame(width: 88, height: 88)
+                              )}
+                            
+                            
+                        } //end HStack
+                                  
+                      Spacer()
+                            
                 }
+                MenuView()
+                                 .background(Color.black.opacity(0.001))
+                                 .offset(y: showSettings ? 0 : 900)
+                                 .offset(y: viewState.height)
+                                 .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+                                 .onTapGesture {
+                                     self.showSettings.toggle()
+                             }
+                             .gesture(
+                                 DragGesture() .onChanged { value in
+                                     self.viewState = value.translation
+                                 }
+                                     .onEnded { value in
+                                         if self.viewState.height > 50 {
+                                             self.showSettings = false
+                                         }
+                                             self.viewState = .zero
+                                     }
+
+                             )
+                
+            }
             }
         }
 
