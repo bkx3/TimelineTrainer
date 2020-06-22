@@ -171,7 +171,7 @@ struct TimerView: View {
             self.timer.update()
         }
         .onAppear {
-            self.timer.start()
+            self.timer.pause()
         }
     }
 }
@@ -185,6 +185,12 @@ struct ContentView: View {
         var body: some View {
                 VStack {
                     TimerView(timer: timer)
+                    .font(.system(size: 150, design: .monospaced))
+                       .frame(width: UIScreen.main.bounds.size.width,
+                          height: 200,
+                          alignment: .center)
+                    
+                    
                     Button(action: self.timer.changeRunningState) {
                         if timer.isRunning {
                             Image(systemName: "pause.fill")
