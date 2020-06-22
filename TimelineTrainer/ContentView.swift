@@ -224,29 +224,28 @@ struct ContentView: View {
                             
                 }
                 MenuView()
-                                 .background(Color.black.opacity(0.001))
-                                 .offset(y: showSettings ? 0 : 900)
-                                 .offset(y: viewState.height)
-                                 .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
-                                 .onTapGesture {
-                                     self.showSettings.toggle()
-                             }
-                             .gesture(
-                                 DragGesture() .onChanged { value in
-                                     self.viewState = value.translation
-                                 }
-                                     .onEnded { value in
-                                         if self.viewState.height > 50 {
-                                             self.showSettings = false
-                                         }
-                                             self.viewState = .zero
-                                     }
-
+                 .background(Color.black.opacity(0.001))
+                 .offset(y: showSettings ? 0 : 900)
+                 .offset(y: viewState.height)
+                 .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+                 .onTapGesture {
+                     self.showSettings.toggle()
+                         }
+                 .gesture(
+                     DragGesture() .onChanged { value in
+                     self.viewState = value.translation
+                         }
+                     .onEnded { value in
+                     if self.viewState.height > 50 {
+                         self.showSettings = false
+                     }
+                         self.viewState = .zero
+                         }
                              )
                 
-            }
-            }
-        }
+            } //end ZStack
+            } //end view
+        } //end ContentView
 
 
 struct ContentView_Previews: PreviewProvider {
