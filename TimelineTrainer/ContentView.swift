@@ -101,7 +101,7 @@ struct ContentView: View {
     
  @ObservedObject var timer = MKTimer()
     
-    @State var rounds = 0
+    @State var roundsComplete = 0
     @State var roundsGoal = 5
 
     
@@ -154,8 +154,8 @@ struct ContentView: View {
                             
                             //new button. useless button.
                             
-                            if self.roundsGoal - self.rounds == 1 {
-                                Button(action: {self.rounds += 1}) {
+                            if self.roundsGoal - self.roundsComplete == 1 {
+                                Button(action: {self.timer.pause(); self.roundsComplete += 1}) {
                                 Text("Finish Workout")
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
@@ -170,7 +170,7 @@ struct ContentView: View {
                                 }
                                 .padding(.all, 30.0)
                             } else {
-                                Button(action: {self.rounds += 1}) {
+                                Button(action: {self.roundsComplete += 1}) {
                                 Text("New Round")
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
@@ -212,32 +212,42 @@ struct ContentView: View {
                           
 //                    Text("\(rounds) Rounds Complete")
                     
-                    if self.rounds == 1 {
-                        Text("\(rounds) Round Complete")
+                    if self.roundsComplete == 1 {
+                        Text("\(roundsComplete) Round Complete")
                     } else {
-                        Text("\(rounds) Rounds Complete")
+                        Text("\(roundsComplete) Rounds Complete")
                     }
                     
-                    if self.roundsGoal - self.rounds == 1 {
-                          Text("\(self.roundsGoal - self.rounds) round to go!")
+                    if self.roundsGoal - self.roundsComplete == 1 {
+                          Text("\(self.roundsGoal - self.roundsComplete) round to go!")
                       } else {
-                          Text("\(self.roundsGoal - self.rounds) rounds to go")
+                          Text("\(self.roundsGoal - self.roundsComplete) rounds to go")
                       }
                     
                     
                     HStack {
-                        Spacer()
-                        Stepper(value: $roundsGoal, in: 0...26){
-                            Text("Goal: \(roundsGoal) rounds")
-                        
+                        ZStack {
+                           
+                            Stepper(value: $roundsGoal, in: 0...26){
+                                Text("Goal: \(roundsGoal) rounds")
+                                .frame(width: 250, height: 40)
+                            }
+                            
+                            
+                            if timer.isRunning {
+                                Rectangle()
+                               .frame(width: 400, height: 40)
+                               .foregroundColor(.white)
+                                   
+                            } else {
+                               
+                            }
+
                         }
-                    
-                        
-                        Spacer()
+                        .frame(width:300)
                     }
-                    .frame(width:300)
                     
-                    Button(action: {self.timer.restart(); self.rounds = 0}) {
+                    Button(action: {self.timer.restart(); self.roundsComplete = 0}) {
                                      Text("Reset")
                                       .font(.headline)
                                       .fontWeight(.bold)
