@@ -226,42 +226,42 @@ struct ContentView: View {
                     
                     
                     HStack {
-                        ZStack {
-                           
-                            Stepper(value: $roundsGoal, in: 0...26){
-                                Text("Goal: \(roundsGoal) rounds")
-                                .frame(width: 250, height: 40)
-                            }
-                            
-                            
+                                            
                             if timer.isRunning {
-                                Rectangle()
-                               .frame(width: 400, height: 40)
-                               .foregroundColor(.white)
+                                
                                    
                             } else {
-                               
+                                VStack {
+                                    Stepper(value: $roundsGoal, in: 0...26){
+                                       Text("Goal: \(roundsGoal) rounds")
+                                       .frame(width: 250, height: 40)
+                                   }
+                                .frame(width: 250)
+                                    .offset(x: -30)
+                                    
+                                    Button(action: {self.timer.restart(); self.roundsComplete = 0}) {
+                                                     Text("Reset")
+                                                      .font(.headline)
+                                                      .fontWeight(.bold)
+                                                     
+                                                     .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+                                                     .padding()
+                                                     .overlay(
+                                                         RoundedRectangle(cornerRadius: 50)
+                                                          .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
+                                                          .frame(width: 150.0, height: 40.0)
+                                                                 )
+                                                                 
+                                    }
+                                    .padding(.vertical)
+                                }
                             }
+                        
+                        
 
-                        }
-                        .frame(width:300)
                     }
                     
-                    Button(action: {self.timer.restart(); self.roundsComplete = 0}) {
-                                     Text("Reset")
-                                      .font(.headline)
-                                      .fontWeight(.bold)
-                                     
-                                     .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                                     .padding()
-                                     .overlay(
-                                         RoundedRectangle(cornerRadius: 50)
-                                          .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
-                                          .frame(width: 150.0, height: 40.0)
-                                                 )
-                                                 
-                    }
-                    .padding(.vertical)
+                    
                     
                     
                            
