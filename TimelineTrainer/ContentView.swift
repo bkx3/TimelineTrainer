@@ -208,8 +208,20 @@ struct ContentView: View {
                       }
                     
                     
+                    HStack {
+                        Spacer()
+                        Stepper(value: $roundsGoal, in: 0...26){
+                            Text("Goal: \(roundsGoal) rounds")
+                        
+                        }
+                    
+                        
+                        Spacer()
+                    }
+                    .frame(width:300)
+                    
                     Button(action: {self.timer.restart(); self.rounds = 0}) {
-                                     Text("Restart")
+                                     Text("Reset")
                                       .font(.headline)
                                       .fontWeight(.bold)
                                      
