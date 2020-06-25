@@ -212,17 +212,28 @@ struct ContentView: View {
                           
 //                    Text("\(rounds) Rounds Complete")
                     
-                    if self.roundsComplete == 1 {
-                        Text("\(roundsComplete) Round Complete")
-                    } else {
-                        Text("\(roundsComplete) Rounds Complete")
-                    }
+//                    if self.roundsComplete == 1 {
+//                        Text("\(roundsComplete) Round Complete")
+//                    } else {
+//                        Text("\(roundsComplete) Rounds Complete")
+//                    }
+//
+//                    if self.roundsGoal - self.roundsComplete == 1 {
+//                          Text("\(self.roundsGoal - self.roundsComplete) round to go!")
+//                      } else {
+//                          Text("\(self.roundsGoal - self.roundsComplete) rounds to go")
+//                      }
                     
-                    if self.roundsGoal - self.roundsComplete == 1 {
-                          Text("\(self.roundsGoal - self.roundsComplete) round to go!")
-                      } else {
-                          Text("\(self.roundsGoal - self.roundsComplete) rounds to go")
-                      }
+                    HStack{
+                        Spacer()
+                        ForEach(0..<self.roundsGoal, id:\.self){i in
+                            Group{
+                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+                              Spacer()
+                            }
+                        }
+                    }
+                    .padding(.bottom, 75.0)
                     
                     
                     HStack {
