@@ -102,6 +102,7 @@ struct ContentView: View {
  @ObservedObject var timer = MKTimer()
     
     @State var rounds = 0
+    @State var roundsGoal = 5
 
     
         var body: some View {
@@ -200,6 +201,12 @@ struct ContentView: View {
                         Text("\(rounds) Rounds Complete")
                     }
                     
+                    if self.roundsGoal - self.rounds == 1 {
+                          Text("\(self.roundsGoal - self.rounds) round to go!")
+                      } else {
+                          Text("\(self.roundsGoal - self.rounds) rounds to go")
+                      }
+                    
                     
                     Button(action: {self.timer.restart(); self.rounds = 0}) {
                                      Text("Restart")
@@ -216,7 +223,16 @@ struct ContentView: View {
                                                  
                     }
                     .padding(.vertical)
+                    
+                    
+                           
+                    
+                    
+                    
+                    
                       Spacer()
+                    
+             
                             
                 }
                 MenuView()
