@@ -101,7 +101,7 @@ struct ContentView: View {
     
  @ObservedObject var timer = MKTimer()
     
-    var rounds = 0
+    @State var rounds = 0
 
     
         var body: some View {
@@ -153,7 +153,7 @@ struct ContentView: View {
                             
                             //new button. useless button.
                             
-                            Button(action: {}) {
+                            Button(action: {self.rounds += 1}) {
                             Text("New Round")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
@@ -191,8 +191,17 @@ struct ContentView: View {
                             
                             
                         } //end HStack
-                           Text("\(rounds) Rounds Complete")
-                    Button(action: {self.timer.restart()}) {
+                          
+//                    Text("\(rounds) Rounds Complete")
+                    
+                    if self.rounds == 1 {
+                        Text("\(rounds) Round Complete")
+                    } else {
+                        Text("\(rounds) Rounds Complete")
+                    }
+                    
+                    
+                    Button(action: {self.timer.restart(); self.rounds = 0}) {
                                      Text("Restart")
                                       .font(.headline)
                                       .fontWeight(.bold)
