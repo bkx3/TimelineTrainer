@@ -154,20 +154,37 @@ struct ContentView: View {
                             
                             //new button. useless button.
                             
-                            Button(action: {self.rounds += 1}) {
-                            Text("New Round")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
-                                .frame(width: 350, height: 88)
-                                
-                                .overlay(
-                                RoundedRectangle(cornerRadius: 50)
-                                .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
-                                .frame(width: 350, height: 88))
-                                
+                            if self.roundsGoal - self.rounds == 1 {
+                                Button(action: {self.rounds += 1}) {
+                                Text("Finish Workout")
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
+                                    .frame(width: 350, height: 88)
+                                    
+                                    .overlay(
+                                    RoundedRectangle(cornerRadius: 50)
+                                    .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
+                                    .frame(width: 350, height: 88))
+                                    
+                                }
+                                .padding(.all, 30.0)
+                            } else {
+                                Button(action: {self.rounds += 1}) {
+                                Text("New Round")
+                                    .font(.largeTitle)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
+                                    .frame(width: 350, height: 88)
+                                    
+                                    .overlay(
+                                    RoundedRectangle(cornerRadius: 50)
+                                    .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
+                                    .frame(width: 350, height: 88))
+                                    
+                                }
+                                .padding(.all, 30.0)
                             }
-                            .padding(.all, 30.0)
                         
                             //gear button
                             
