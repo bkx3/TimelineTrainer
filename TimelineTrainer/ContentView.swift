@@ -192,6 +192,21 @@ struct ContentView: View {
                             
                         } //end HStack
                            Text("\(rounds) Rounds Complete")
+                    Button(action: {self.timer.restart()}) {
+                                     Text("Restart")
+                                      .font(.headline)
+                                      .fontWeight(.bold)
+                                     
+                                     .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+                                     .padding()
+                                     .overlay(
+                                         RoundedRectangle(cornerRadius: 50)
+                                          .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
+                                          .frame(width: 150.0, height: 40.0)
+                                                 )
+                                                 
+                    }
+                    .padding(.vertical)
                       Spacer()
                             
                 }
