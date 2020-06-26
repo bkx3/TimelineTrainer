@@ -113,13 +113,14 @@ struct ContentView: View {
                 GeometryReader{g in
                 VStack {
                     TimerView(timer: self.timer)
-                        //.padding(.top, 75.0)
+                        .padding(.bottom, 55.0)
                         .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.height * 0.35, design: .monospaced))
                         //.font(.system(size: 150, design: .monospaced))
                         .frame(width: UIScreen.main.bounds.size.width / 1.2,
                               height: 250,
                               alignment: .center)
                             .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                    
                         
 Text("")
                         HStack {
@@ -161,7 +162,9 @@ Text("")
                             .padding(.horizontal)
                             .animation(.default)
                             
+                            Spacer()
                             
+                            //here comes a button
                             if self.roundsGoal - self.roundsComplete == 1 {
                                 Button(action: {self.timer.pause(); self.roundsComplete += 1}) {
                                 Text("Finish Workout")
@@ -177,8 +180,7 @@ Text("")
                                     )
                                     
                                 }
-//                                .padding(.all, 30.0)
-                                .padding(.horizontal)
+                               
                             } else {
                                 Button(action: {self.roundsComplete += 1}) {
                                 Text("New Round")
@@ -194,11 +196,12 @@ Text("")
                                     )
                                     
                                 }
-                                //.padding(.all, 30.0)
-                                .padding(.horizontal)
+                                
                             }
                         
                             //gear button
+                            
+                            Spacer()
                             
                             Button(action:{
                              self.showSettings.toggle()
@@ -216,6 +219,7 @@ Text("")
                              
                             )
                         }
+                                
                             .padding(.horizontal)
                             .animation(.default)
 
@@ -223,24 +227,11 @@ Text("")
                             
                             
                         }
-                        .padding(.bottom, 75.0)
-                    .frame(width: 700)
+                            
+                    .padding(.bottom, 75.0)
+                        .frame(width: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.width * 0.7)
                     //end HStack
-                          
-//                    Text("\(rounds) Rounds Complete")
-                    
-//                    if self.roundsComplete == 1 {
-//                        Text("\(roundsComplete) Round Complete")
-//                    } else {
-//                        Text("\(roundsComplete) Rounds Complete")
-//                    }
-//
-//                    if self.roundsGoal - self.roundsComplete == 1 {
-//                          Text("\(self.roundsGoal - self.roundsComplete) round to go!")
-//                      } else {
-//                          Text("\(self.roundsGoal - self.roundsComplete) rounds to go")
-//                      }
-                    
+                
                     HStack{
                         Spacer()
                         ForEach(0..<self.roundsGoal, id:\.self){i in
@@ -263,7 +254,7 @@ Text("")
                         }
                     }
                     .padding(.bottom, 75.0)
-                    .frame(width: 700)
+                    .frame(width: g.size.height > g.size.width ? g.size.width * 0.5 : g.size.width * 0.7)
 
                     
                     
