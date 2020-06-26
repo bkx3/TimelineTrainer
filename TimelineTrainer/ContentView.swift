@@ -64,7 +64,7 @@ class MKTimer: ObservableObject {
 extension MKTimer {
     var timeComponents: DateComponents {
         var components = DateComponents()
-        components.hour = 0
+        //components.hour = 0
         components.minute = 0
         components.second = Int(time)
         return components
@@ -85,6 +85,7 @@ struct TimerView: View {
     var body: some View {
         VStack {
             Text("\(self.timer.timeComponents, formatter: MKTimer.formatter)")
+                .fontWeight(.bold)
         }
         .onReceive(timePublisher) { _ in
             self.timer.update()
@@ -107,12 +108,18 @@ struct ContentView: View {
     
         var body: some View {
             ZStack {
+                
                 VStack {
-                        TimerView(timer: timer)
-                        .font(.system(size: 150, design: .monospaced))
-                           .frame(width: UIScreen.main.bounds.size.width,
+                    TimerView(timer: timer)
+                        .padding(.top, 75.0)
+                        .font(.system(size: 800, design: .monospaced))
+                          .minimumScaleFactor(0.0001)
+                          .lineLimit(1)
+                        //.font(.system(size: 150, design: .monospaced))
+                        .frame(width: UIScreen.main.bounds.size.width / 1.5,
                               height: 200,
                               alignment: .center)
+                            .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
                         
                      
                         HStack {
@@ -150,6 +157,7 @@ struct ContentView: View {
                             }
                             .padding(.horizontal)
                             .animation(.default)
+                            
                             
                             
                             //new button. useless button.
@@ -208,7 +216,9 @@ struct ContentView: View {
                             
                             
                             
-                        } //end HStack
+                        }
+                    .frame(width: 600)
+                    //end HStack
                           
 //                    Text("\(rounds) Rounds Complete")
                     
