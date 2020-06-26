@@ -97,6 +97,8 @@ struct TimerView: View {
 }
 
 struct ContentView: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     @State var showSettings = false
     @State var viewState = CGSize.zero
     
@@ -112,7 +114,7 @@ struct ContentView: View {
                 VStack {
                     TimerView(timer: self.timer)
                         //.padding(.top, 75.0)
-                        .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.height * 0.25, design: .monospaced))
+                        .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.height * 0.35, design: .monospaced))
                         //.font(.system(size: 150, design: .monospaced))
                         .frame(width: UIScreen.main.bounds.size.width / 1.2,
                               height: 250,
@@ -123,35 +125,38 @@ Text("")
                         HStack {
                             Button(action: self.timer.changeRunningState) {
                                 if self.timer.isRunning {
-                                    Image(systemName: "pause.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                                    .frame(width: 64, height: 64)
-                                      
-                                        
+                                    
+                                     Circle()
+                                    .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
+                                    .frame(width: 88, height: 88)
+                            
                                     .overlay(
-                                        Circle()
-                                            .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
-                                            .frame(width: 88, height: 88))
+                                    Image(systemName: "pause.fill")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+                                        .frame(width: 64, height: 55)
+                                        )
                                     .contentShape(Rectangle())
-                                    
-                                    
+               
                                 } else {
-                                    Image(systemName: "play.fill")
-                                    .resizable()
-                                      .aspectRatio(contentMode: .fit)
-                                        .offset(x: 6)
-                                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
-                                        .frame(width: 64, height: 64)
+                                    
+                                Circle()
+                                    .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                    .frame(width: 88, height: 88)
+                                
+                                    .overlay(
+                                        Image(systemName: "play.fill")
+                                        .resizable()
+                                          .aspectRatio(contentMode: .fit)
+                                            .offset(x: 6)
+                                            .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                                            .frame(width: 44, height: 55)
+                                        )
                                         
-                                        .overlay(
-                                            Circle()
-                                            .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
-                                            .frame(width: 88, height: 88))
                                     .contentShape(Rectangle())
-
-                                } //end else
+                                    
+                                }
                             }
                             .padding(.horizontal)
                             .animation(.default)
@@ -199,19 +204,19 @@ Text("")
                              self.showSettings.toggle()
                           })
                           {
-                              Image(systemName: "gear")
-                              .resizable()
-                              .aspectRatio(contentMode: .fill)
-                              .foregroundColor(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)))
-                              .frame(width: 64, height: 64)
-                              
-                              
+                            Circle()
+                                   .stroke(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)), lineWidth: 6)
+                                   .frame(width: 88, height: 88)
                               .overlay(
-                                  Circle()
-                                      .stroke(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)), lineWidth: 6)
-                                      .frame(width: 88, height: 88)
-                            )}
-                                .padding(.horizontal)
+                                Image(systemName: "gear")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .foregroundColor(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)))
+                                .frame(width: 64, height: 55)
+                             
+                            )
+                        }
+                            .padding(.horizontal)
                             .animation(.default)
 
                             
