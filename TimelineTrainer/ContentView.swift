@@ -108,28 +108,26 @@ struct ContentView: View {
     
         var body: some View {
             ZStack {
-                
+                GeometryReader{g in
                 VStack {
-                    TimerView(timer: timer)
-                        .padding(.top, 75.0)
-                        .font(.system(size: 800, design: .monospaced))
-                          .minimumScaleFactor(0.0001)
-                          .lineLimit(1)
+                    TimerView(timer: self.timer)
+                        //.padding(.top, 75.0)
+                        .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.height * 0.25, design: .monospaced))
                         //.font(.system(size: 150, design: .monospaced))
-                        .frame(width: UIScreen.main.bounds.size.width / 1.5,
-                              height: 200,
+                        .frame(width: UIScreen.main.bounds.size.width / 1.2,
+                              height: 250,
                               alignment: .center)
                             .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
                         
-                     
+Text("")
                         HStack {
                             Button(action: self.timer.changeRunningState) {
-                                if timer.isRunning {
+                                if self.timer.isRunning {
                                     Image(systemName: "pause.fill")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                                    .frame(width: 50, height: 50)
+                                    .frame(width: 64, height: 64)
                                       
                                         
                                     .overlay(
@@ -143,9 +141,9 @@ struct ContentView: View {
                                     Image(systemName: "play.fill")
                                     .resizable()
                                       .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
-                                        .frame(width: 50, height: 50)
                                         .offset(x: 6)
+                                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                                        .frame(width: 64, height: 64)
                                         
                                         .overlay(
                                             Circle()
@@ -159,39 +157,40 @@ struct ContentView: View {
                             .animation(.default)
                             
                             
-                            
-                            //new button. useless button.
-                            
                             if self.roundsGoal - self.roundsComplete == 1 {
                                 Button(action: {self.timer.pause(); self.roundsComplete += 1}) {
                                 Text("Finish Workout")
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
-                                    .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
+                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
                                     .frame(width: 350, height: 88)
                                     
                                     .overlay(
                                     RoundedRectangle(cornerRadius: 50)
-                                    .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
-                                    .frame(width: 350, height: 88))
+                                    .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                    .frame(width: 350, height: 88)
+                                    )
                                     
                                 }
-                                .padding(.all, 30.0)
+//                                .padding(.all, 30.0)
+                                .padding(.horizontal)
                             } else {
                                 Button(action: {self.roundsComplete += 1}) {
                                 Text("New Round")
                                     .font(.largeTitle)
                                     .fontWeight(.bold)
-                                    .foregroundColor(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)))
+                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
                                     .frame(width: 350, height: 88)
                                     
                                     .overlay(
                                     RoundedRectangle(cornerRadius: 50)
-                                    .stroke(Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), lineWidth: 6)
-                                    .frame(width: 350, height: 88))
+                                    .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                    .frame(width: 350, height: 88)
+                                    )
                                     
                                 }
-                                .padding(.all, 30.0)
+                                //.padding(.all, 30.0)
+                                .padding(.horizontal)
                             }
                         
                             //gear button
@@ -213,11 +212,14 @@ struct ContentView: View {
                                       .frame(width: 88, height: 88)
                             )}
                                 .padding(.horizontal)
+                            .animation(.default)
+
                             
                             
                             
                         }
-                    .frame(width: 600)
+                        .padding(.bottom, 75.0)
+                    .frame(width: 700)
                     //end HStack
                           
 //                    Text("\(rounds) Rounds Complete")
@@ -238,23 +240,37 @@ struct ContentView: View {
                         Spacer()
                         ForEach(0..<self.roundsGoal, id:\.self){i in
                             Group{
-                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+                                if self.roundsGoal < 10 {
+                                    Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+                                        .font(.system(size: 60))
+                                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
+                                    
+                                    )
+                                } else {
+                                     Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+                                         .font(.system(size: 30))
+                                         .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
+                                     
+                                     )
+                                }
                               Spacer()
                             }
                         }
                     }
                     .padding(.bottom, 75.0)
+                    .frame(width: 700)
+
                     
                     
                     HStack {
                                             
-                            if timer.isRunning {
+                        if self.timer.isRunning {
                                 
                                    
                             } else {
                                 VStack {
-                                    Stepper(value: $roundsGoal, in: 0...26){
-                                       Text("Goal: \(roundsGoal) rounds")
+                                    Stepper(value: self.$roundsGoal, in: 0...26){
+                                        Text("Goal: \(self.roundsGoal) rounds")
                                        .frame(width: 250, height: 40)
                                    }
                                 .frame(width: 250)
@@ -294,6 +310,7 @@ struct ContentView: View {
                     
              
                             
+                }
                 }
                 MenuView()
                  .background(Color.black.opacity(0.001))
