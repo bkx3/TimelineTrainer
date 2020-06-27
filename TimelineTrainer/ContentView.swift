@@ -43,6 +43,7 @@ class MKTimer: ObservableObject {
         self.startDate = Date()
         self.currentDate = Date()
         self.time = 0
+        self.prevTime = 0
     }
     
     func changeRunningState() {
@@ -97,6 +98,7 @@ struct TimerView: View {
 }
 
 struct ContentView: View {
+   
     @Environment(\.horizontalSizeClass) var sizeClass
     
     @State var showSettings = false
@@ -113,7 +115,7 @@ struct ContentView: View {
                 GeometryReader{g in
                 VStack {
                     TimerView(timer: self.timer)
-                        .padding(.bottom, 55.0)
+                        .padding(.vertical, 100.0)
                         .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.height * 0.35, design: .monospaced))
                         //.font(.system(size: 150, design: .monospaced))
                         .frame(width: UIScreen.main.bounds.size.width / 1.2,
