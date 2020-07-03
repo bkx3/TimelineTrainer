@@ -104,10 +104,11 @@ struct ContentView: View {
     @State var showSettings = false
     @State var viewState = CGSize.zero
     
- @ObservedObject var timer = MKTimer()
+    @ObservedObject var timer = MKTimer()
+    
+    @ObservedObject var roundsGoal = TimerSettings()
     
     @State var roundsComplete = 0
-    @State var roundsGoal = 5
 
     
         var body: some View {
@@ -117,14 +118,11 @@ struct ContentView: View {
                     TimerView(timer: self.timer)
                         .padding(.vertical, 100.0)
                         .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.height * 0.35, design: .monospaced))
-                        //.font(.system(size: 150, design: .monospaced))
                         .frame(width: UIScreen.main.bounds.size.width / 1.2,
                               height: 250,
                               alignment: .center)
                             .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
                     
-                        
-Text("")
                         HStack {
                             Button(action: self.timer.changeRunningState) {
                                 if self.timer.isRunning {
@@ -166,7 +164,6 @@ Text("")
                             
                             Spacer()
                             
-                            //here comes a button
                             if self.roundsGoal - self.roundsComplete == 1 {
                                 Button(action: {self.timer.pause(); self.roundsComplete += 1}) {
                                 Text("Finish Workout")
@@ -226,8 +223,6 @@ Text("")
                             .animation(.default)
 
                             
-                            
-                            
                         }
                             
                     .padding(.bottom, 75.0)
@@ -267,13 +262,6 @@ Text("")
                                    
                             } else {
                                 VStack {
-                                    Stepper(value: self.$roundsGoal, in: 0...26){
-                                        Text("Goal: \(self.roundsGoal) rounds")
-                                       .frame(width: 250, height: 40)
-                                   }
-                                .frame(width: 250)
-                                    .offset(x: -30)
-                                    
                                     Button(action: {self.timer.restart(); self.roundsComplete = 0}) {
                                                      Text("Reset")
                                                       .font(.headline)
@@ -310,7 +298,8 @@ Text("")
                             
                 }
                 }
-                MenuView()
+                Group{
+                SettingsView()
                  .background(Color.black.opacity(0.001))
                  .offset(y: showSettings ? 0 : 900)
                  .offset(y: viewState.height)
@@ -329,99 +318,13 @@ Text("")
                          self.viewState = .zero
                          }
                              )
+                }
                 
             } //end ZStack
             } //end view
         } //end ContentView
 
-struct MenuView: View {
-@ObservedObject var timer = MKTimer()
-    
-    var body: some View {
-         
-        
-        VStack {
-            Spacer()
-            VStack (spacing: 10) {
-                
-                Text("Timed Workout")
-                    .font(.largeTitle)
-                    .padding(.top)
-              
-                
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                    Text("5 rounds")
-                }
-                
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                Text("Goal: 25m 00s")
-                }
-                .padding(.bottom)
-                
-                
-              Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                          Text("Start in 10s")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                          
-                          .foregroundColor(Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)))
-                          .padding()
-                          .overlay(
-                              RoundedRectangle(cornerRadius: 50)
-                              .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 3)
-                                .frame(width: 150.0, height: 40.0)
-                          )
-                          
-              }
-              .padding(.vertical, 50.0)
-                          .frame(height: 22)
-                
-                
-                  Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                           Text("Start in 30s")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                           
-                           .foregroundColor(Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)))
-                           .padding()
-                           .overlay(
-                               RoundedRectangle(cornerRadius: 50)
-                                .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 3)
-                                .frame(width: 150.0, height: 40.0)
-                                       )
-                                       
-                  }
-                    Spacer()
-                  .padding(.top, 40.0)
-                    .frame(height: 22)
-                
-                Button(action: {self.timer.restart()}) {
-                  Text("Restart")
-                   .font(.headline)
-                   .fontWeight(.bold)
-                  
-                  .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                  .padding()
-                  .overlay(
-                      RoundedRectangle(cornerRadius: 50)
-                       .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
-                       .frame(width: 150.0, height: 40.0)
-                              )
-                              
-         }
-                
-            }
-            .frame(maxWidth: 500)
-            .frame(height: 350)
-            .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(#colorLiteral(red: 0.8705882353, green: 0.8941176471, blue: 0.9450980392, alpha: 1))]), startPoint: .top, endPoint: .bottom))
-            .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
-            .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)            .padding(.horizontal, 30)
-           Spacer()
 
-        }
-        .padding(.top, 30)
-    }
-}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
