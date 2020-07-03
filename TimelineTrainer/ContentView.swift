@@ -111,144 +111,172 @@ struct ContentView: View {
     @State var roundsComplete = 0
 
     
-        var body: some View {
+    fileprivate func settingsButton() {
+        Button(action:{
+            self.showSettings.toggle()
+        })
+        {
+            Circle()
+                .stroke(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)), lineWidth: 6)
+                .frame(width: 88, height: 88)
+                .overlay(
+                    Image(systemName: "gear")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .foregroundColor(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)))
+                        .frame(width: 64, height: 55)
+                    
+            )
+        }
+    }
+    
+    fileprivate func resetButton() {
+        Button(action: {self.timer.restart(); self.roundsComplete = 0}) {
+            Text("Reset")
+                .font(.headline)
+                .fontWeight(.bold)
+                
+                .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 50)
+                        .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
+                        .frame(width: 150.0, height: 40.0)
+            )
+            
+        }
+    }
+    
+    fileprivate func finishWorkoutButton() {
+        Button(action: {self.timer.pause(); self.roundsComplete += 1}) {
+            Text("Finish Workout")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                .frame(width: 350, height: 88)
+                
+                .overlay(
+                    RoundedRectangle(cornerRadius: 50)
+                        .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                        .frame(width: 350, height: 88)
+            )
+            
+        }
+    }
+    
+    fileprivate func newRoundButton() {
+        Button(action: {self.roundsComplete += 1}) {
+            Text("New Round")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                .frame(width: 350, height: 88)
+                
+                .overlay(
+                    RoundedRectangle(cornerRadius: 50)
+                        .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                        .frame(width: 350, height: 88)
+            )
+            
+        }
+    }
+    
+//    fileprivate func progressDots() {
+//        ForEach(0..<(self.roundsGoal), id:\.self){i in
+//            Group{
+//                if roundsGoal < 10 {
+//                    Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+//                        .font(.system(size: 60))
+//                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
+//
+//                    )
+//                } else {
+//                    Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+//                        .font(.system(size: 30))
+//                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
+//
+//                    )
+//                }
+//                Spacer()
+//            }
+//        }
+//    }
+    
+    var body: some View {
             ZStack {
                 GeometryReader{g in
                 VStack {
-                    TimerView(timer: self.timer)
-                        .padding(.vertical, 100.0)
-                        .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.height * 0.35, design: .monospaced))
-                        .frame(width: UIScreen.main.bounds.size.width / 1.2,
-                              height: 250,
-                              alignment: .center)
-                            .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+//                    TimerView(timer: self.timer)
+//                        .padding(.vertical, 100.0)
+//                        .font(.system(size: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.height * 0.35, design: .monospaced))
+//                        .frame(width: UIScreen.main.bounds.size.width / 1.2,
+//                              height: 250,
+//                              alignment: .center)
+//                            .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
                     
-                        HStack {
-                            Button(action: self.timer.changeRunningState) {
-                                if self.timer.isRunning {
-                                    
-                                     Circle()
-                                    .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
-                                    .frame(width: 88, height: 88)
-                            
-                                    .overlay(
-                                    Image(systemName: "pause.fill")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                                        .frame(width: 64, height: 55)
-                                        )
-                                    .contentShape(Rectangle())
-               
-                                } else {
-                                    
-                                Circle()
-                                    .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
-                                    .frame(width: 88, height: 88)
-                                
-                                    .overlay(
-                                        Image(systemName: "play.fill")
-                                        .resizable()
-                                          .aspectRatio(contentMode: .fit)
-                                            .offset(x: 6)
-                                            .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
-                                            .frame(width: 44, height: 55)
-                                        )
-                                        
-                                    .contentShape(Rectangle())
-                                    
-                                }
-                            }
-                            .padding(.horizontal)
-                            .animation(.default)
-                            
-                            Spacer()
-                            
-                            if self.roundsGoal - self.roundsComplete == 1 {
-                                Button(action: {self.timer.pause(); self.roundsComplete += 1}) {
-                                Text("Finish Workout")
-                                    .font(.largeTitle)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
-                                    .frame(width: 350, height: 88)
-                                    
-                                    .overlay(
-                                    RoundedRectangle(cornerRadius: 50)
-                                    .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
-                                    .frame(width: 350, height: 88)
-                                    )
-                                    
-                                }
-                               
-                            } else {
-                                Button(action: {self.roundsComplete += 1}) {
-                                Text("New Round")
-                                    .font(.largeTitle)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
-                                    .frame(width: 350, height: 88)
-                                    
-                                    .overlay(
-                                    RoundedRectangle(cornerRadius: 50)
-                                    .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
-                                    .frame(width: 350, height: 88)
-                                    )
-                                    
-                                }
-                                
-                            }
-                        
-                            //gear button
-                            
-                            Spacer()
-                            
-                            Button(action:{
-                             self.showSettings.toggle()
-                          })
-                          {
-                            Circle()
-                                   .stroke(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)), lineWidth: 6)
-                                   .frame(width: 88, height: 88)
-                              .overlay(
-                                Image(systemName: "gear")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .foregroundColor(Color(#colorLiteral(red: 0.3211478293, green: 0.4786565304, blue: 1, alpha: 1)))
-                                .frame(width: 64, height: 55)
-                             
-                            )
-                        }
-                                
-                            .padding(.horizontal)
-                            .animation(.default)
-
-                            
-                        }
-                            
-                    .padding(.bottom, 75.0)
-                        .frame(width: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.width * 0.7)
-                    //end HStack
+//                        HStack {
+//                            Button(action: self.timer.changeRunningState) {
+//                                if self.timer.isRunning {
+//
+//                                     Circle()
+//                                    .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
+//                                    .frame(width: 88, height: 88)
+//
+//                                    .overlay(
+//                                    Image(systemName: "pause.fill")
+//                                        .resizable()
+//                                        .aspectRatio(contentMode: .fit)
+//                                        .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+//                                        .frame(width: 64, height: 55)
+//                                        )
+//                                    .contentShape(Rectangle())
+//
+//                                } else {
+//
+//                                Circle()
+//                                    .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+//                                    .frame(width: 88, height: 88)
+//
+//                                    .overlay(
+//                                        Image(systemName: "play.fill")
+//                                        .resizable()
+//                                          .aspectRatio(contentMode: .fit)
+//                                            .offset(x: 6)
+//                                            .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+//                                            .frame(width: 44, height: 55)
+//                                        )
+//
+//                                    .contentShape(Rectangle())
+//
+//                                }
+//                            }
+//                            .padding(.horizontal)
+//                            .animation(.default)
+//
+//                            Spacer()
+//
+//                            //big-ass button
+//
+//                            if self.roundsGoal - self.roundsComplete == 1 {
+//                                finishWorkoutButton()
+//                            } else {
+//                                newRoundButton()
+//                            }
+//
+//                        Spacer()
+//                            //gear button
+//                            settingsButton()
+//                            .padding(.horizontal)
+//                            .animation(.default)
+//
+//
+//                    .padding(.bottom, 75.0)
+//                        .frame(width: g.size.height > g.size.width ? g.size.width * 0.25 : g.size.width * 0.7)
+//                    }//end HStack
                 
                     HStack{
                         Spacer()
-                        ForEach(0..<self.roundsGoal, id:\.self){i in
-                            Group{
-                                if self.roundsGoal < 10 {
-                                    Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
-                                        .font(.system(size: 60))
-                                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
-                                    
-                                    )
-                                } else {
-                                     Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
-                                         .font(.system(size: 30))
-                                         .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
-                                     
-                                     )
-                                }
-                              Spacer()
-                            }
-                        }
+//                        progressDots()
                     }
                     .padding(.bottom, 75.0)
                     .frame(width: g.size.height > g.size.width ? g.size.width * 0.5 : g.size.width * 0.7)
@@ -262,66 +290,40 @@ struct ContentView: View {
                                    
                             } else {
                                 VStack {
-                                    Button(action: {self.timer.restart(); self.roundsComplete = 0}) {
-                                                     Text("Reset")
-                                                      .font(.headline)
-                                                      .fontWeight(.bold)
-                                                     
-                                                     .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                                                     .padding()
-                                                     .overlay(
-                                                         RoundedRectangle(cornerRadius: 50)
-                                                          .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
-                                                          .frame(width: 150.0, height: 40.0)
-                                                                 )
-                                                                 
-                                    }
-                                    .padding(.vertical)
+                                    resetButton()
+//                                    .padding(.vertical)
                                 }
                             }
-                        
-                        
-
                     }
-                    
-                    
-                    
-                    
-                           
-                    
-                    
-                    
                     
                       Spacer()
                     
              
-                            
-                }
-                }
-                Group{
-                SettingsView()
-                 .background(Color.black.opacity(0.001))
-                 .offset(y: showSettings ? 0 : 900)
-                 .offset(y: viewState.height)
-                 .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
-                 .onTapGesture {
-                     self.showSettings.toggle()
-                         }
-                 .gesture(
-                     DragGesture() .onChanged { value in
-                     self.viewState = value.translation
-                         }
-                     .onEnded { value in
-                     if self.viewState.height > 50 {
-                         self.showSettings = false
-                     }
-                         self.viewState = .zero
-                         }
-                             )
+                    }
                 }
                 
-            } //end ZStack
-            } //end view
+//                SettingsView()
+//                 .background(Color.black.opacity(0.001))
+//                 .offset(y: showSettings ? 0 : 900)
+//                 .offset(y: viewState.height)
+//                 .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+//                 .onTapGesture {
+//                     self.showSettings.toggle()
+//                         }
+//                 .gesture(
+//                     DragGesture() .onChanged { value in
+//                     self.viewState = value.translation
+//                         }
+//                     .onEnded { value in
+//                     if self.viewState.height > 50 {
+//                         self.showSettings = false
+//                     }
+//                         self.viewState = .zero
+//                         }
+//                             )
+                
+        } //end ZStack
+        } //end view
         } //end ContentView
 
 
