@@ -9,9 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @State var selectedWorkout = TimerType.countUp
-    
-   
+    @SceneStorage("TimerType") var selectedWorkout = TimerType.countUp
     
     var body: some View {
          VStack {

@@ -38,9 +38,6 @@ struct ContentView: View {
                        .offset(y: showSettings ? 0 : 900)
                        .offset(y: viewState.height)
                        .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
-                       .onTapGesture {
-                           self.showSettings.toggle()
-                               }
                        .gesture(
                            DragGesture() .onChanged { value in
                            self.viewState = value.translation
