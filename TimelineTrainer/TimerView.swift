@@ -52,13 +52,14 @@ struct TimerView: View {
             // Pause/Resume button
             Button(action: self.timer.toggleRunningState) {
                 Circle()
-                .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
+                    .stroke(Color(.green), lineWidth: 6)
                 .frame(width: 88, height: 88)
                 
                     .overlay(
                 Image(systemName: self.timer.isRunning ? "pause.fill" : "play.fill")
                 )
             }.font(.largeTitle)
+                .foregroundColor(.green)
             .animation(.default)
                 
                 
@@ -66,13 +67,34 @@ struct TimerView: View {
             
             // Restart Button
             Button(action:self.timer.start) {
+                Circle()
+                   .stroke(Color(.blue), lineWidth: 6)
+               .frame(width: 88, height: 88)
+               
+                   .overlay(
                 Image(systemName: self.timer.isCountdown ? "arrow.counterclockwise.circle" : "arrow.clockwise.circle")
+                )
             }.font(.largeTitle)
+                .foregroundColor(.blue)
+                .animation(.default)
+                
+                
             
             // Stop Button
             Button(action: self.timer.end) {
+                Circle()
+                    .stroke(Color(.red), lineWidth: 6)
+                .frame(width: 88, height: 88)
+                
+                    .overlay(
                 Image(systemName: "stop.fill")
+                )
             }.font(.largeTitle)
+                .foregroundColor(.red)
+                .animation(.default)
+                
+                
+                
             }
         }
         .onReceive(timePublisher) { _ in
