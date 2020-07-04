@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @State var selectedWorkout = TimerType.countUp
+    @State var desiredRounds: Int = 0
     
     var body: some View {
          VStack {
@@ -28,8 +29,15 @@ struct SettingsView: View {
                       
                         
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                            Text("5 rounds")
-                        }
+                            if self.desiredRounds == 0 {
+                                Text("As many rounds as possible")
+                            } else {
+                                if self.desiredRounds == 1 {
+                                Text("\(self.desiredRounds) round")
+                                } else {
+                                    Text("\(self.desiredRounds) rounds")
+                                }
+                            } }
                         
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                         Text("Goal: 25m 00s")
@@ -45,6 +53,20 @@ struct SettingsView: View {
                         .pickerStyle(SegmentedPickerStyle())
                         .frame(width: 300)
                         .padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                        
+                        HStack {
+                            Picker("Number of rounds", selection: $desiredRounds){
+                                ForEach(0..<26){
+                                    Text("\($0)")
+                                }
+                            }
+                            .labelsHidden()
+                            .frame(width: 80, height: 80)
+                            .clipped()
+                            Text("Rounds")
+                        }
+                        
+                        Spacer()
                         
                       Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                                   Text("Start in 10s")
