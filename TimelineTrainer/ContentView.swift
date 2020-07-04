@@ -22,7 +22,11 @@ struct ContentView: View {
         
         ZStack {
             VStack {
-                TimerView(target: .down(from: 60))
+                if settings.selectedWorkout == TimerType.countDown {
+                    TimerView(target: .down(from: 60))
+                } else {
+                    TimerView(target: .up(to: 100))
+                }
 //                HStack{
 //                                       Spacer()
 //                                       ForEach(0..<self.roundsGoal, id:\.self){i in
