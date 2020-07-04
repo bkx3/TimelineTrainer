@@ -14,6 +14,7 @@ struct ContentView: View {
     @State var showSettings = false
     @State var viewState = CGSize.zero
 
+    @ObservedObject var settings = Settings()
     
     var body: some View {
         
@@ -46,6 +47,7 @@ struct ContentView: View {
 //                                   .padding(.bottom, 75.0)
                                   
                 Spacer()
+                Text("\(settings.desiredRounds) Rounds")
                 Button(action:{
                    self.showSettings.toggle()
                 })
