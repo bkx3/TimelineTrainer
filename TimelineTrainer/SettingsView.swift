@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @State var selectedWorkout = TimerType.countUp
+    
+   
+    
     var body: some View {
          VStack {
                     Spacer()
@@ -27,6 +32,14 @@ struct SettingsView: View {
                         }
                         .padding(.bottom)
                         
+                        Picker(selection: $selectedWorkout, label: Text("Pick workout")) /*@START_MENU_TOKEN@*/{
+                            ForEach(TimerType.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .frame(width: 300)
+                        .padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                         
                       Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                                   Text("Start in 10s")
@@ -81,7 +94,7 @@ struct SettingsView: View {
                         
                     }
                     .frame(maxWidth: 500)
-                    .frame(height: 350)
+                    .frame(height: 450)
                     .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(#colorLiteral(red: 0.8705882353, green: 0.8941176471, blue: 0.9450980392, alpha: 1))]), startPoint: .top, endPoint: .bottom))
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)            .padding(.horizontal, 30)
@@ -91,9 +104,16 @@ struct SettingsView: View {
                 .padding(.top, 30)
             }
         }
+    
+    enum TimerType: String, CaseIterable {
+        case countUp
+        case countDown
+    }
+    
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
