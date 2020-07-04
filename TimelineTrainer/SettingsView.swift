@@ -7,12 +7,20 @@
 //
 import SwiftUI
 
+
+class Settings: ObservableObject {
+    @Published var selectedWorkout = TimerType.countUp
+    @Published var desiredRounds: Int = 0
+    @Published var desiredTime: TimeInterval = 0
+}
+
 struct SettingsView: View {
     
+    @State private var settings = Settings()
     
-    @State var selectedWorkout = TimerType.countUp
-    @State var desiredRounds: Int = 0
-    @State var desiredTime: TimeInterval = 0
+//    @State var selectedWorkout = TimerType.countUp
+//    @State var desiredRounds: Int = 0
+//    @State var desiredTime: TimeInterval = 0
 
     
     var body: some View {
@@ -20,7 +28,7 @@ struct SettingsView: View {
                     Spacer()
                     VStack (spacing: 10) {
                         
-                        if selectedWorkout == TimerType.countUp {
+                        if settings.selectedWorkout == TimerType.countUp {
                             Text("Timed Workout")
                                 .font(.largeTitle)
                                 .padding(.top)
@@ -32,13 +40,13 @@ struct SettingsView: View {
                       
                         
                        
-                            if self.desiredRounds == 0 {
+                            if settings.desiredRounds == 0 {
                                 Text("As many rounds as possible")
                             } else {
-                                if self.desiredRounds == 1 {
-                                Text("\(self.desiredRounds) round")
+                                if settings.desiredRounds == 1 {
+                                Text("\(settings.desiredRounds) round")
                                 } else {
-                                    Text("\(self.desiredRounds) rounds")
+                                    Text("\(settings.desiredRounds) rounds")
                                 }
                             }
                         
@@ -47,7 +55,7 @@ struct SettingsView: View {
                         }
                         .padding(.bottom)
                         
-                        Picker(selection: $selectedWorkout, label: Text("Pick workout"))
+                        Picker(selection: $settings.selectedWorkout, label: Text("Pick workout"))
                         {
                             ForEach(TimerType.allCases, id: \.self) {
                                 Text($0.rawValue)
@@ -58,7 +66,7 @@ struct SettingsView: View {
                         .padding(.bottom, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
                         
                         HStack {
-                            Picker("Number of rounds", selection: $desiredRounds){
+                            Picker("Number of rounds", selection: $settings.desiredRounds){
                                 ForEach(0..<26){
                                     Text("\($0)")
                                 }
@@ -66,7 +74,7 @@ struct SettingsView: View {
                             .labelsHidden()
                             .frame(width: 80, height: 80)
                             .clipped()
-                            if self.desiredRounds == 1 {
+                            if settings.desiredRounds == 1 {
                             Text("round")
                             } else {
                                 Text("rounds")
@@ -127,12 +135,14 @@ struct SettingsView: View {
 //                 }
                         
                     }
+                    //Build out the window
                     .frame(maxWidth: 500)
                     .frame(height: 600)
                     .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(#colorLiteral(red: 0.8705882353, green: 0.8941176471, blue: 0.9450980392, alpha: 1))]), startPoint: .top, endPoint: .bottom))
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)            .padding(.horizontal, 30)
                    Spacer()
+            //that's the window!
 
                 }
                 .padding(.top, 30)
