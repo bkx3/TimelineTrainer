@@ -9,8 +9,11 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    
     @State var selectedWorkout = TimerType.countUp
     @State var desiredRounds: Int = 0
+    @State var desiredTime: TimeInterval = 0
+
     
     var body: some View {
          VStack {
@@ -28,7 +31,7 @@ struct SettingsView: View {
                         }
                       
                         
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                       
                             if self.desiredRounds == 0 {
                                 Text("As many rounds as possible")
                             } else {
@@ -37,7 +40,7 @@ struct SettingsView: View {
                                 } else {
                                     Text("\(self.desiredRounds) rounds")
                                 }
-                            } }
+                            }
                         
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                         Text("Goal: 25m 00s")
@@ -63,7 +66,11 @@ struct SettingsView: View {
                             .labelsHidden()
                             .frame(width: 80, height: 80)
                             .clipped()
-                            Text("Rounds")
+                            if self.desiredRounds == 1 {
+                            Text("round")
+                            } else {
+                                Text("rounds")
+                            }
                         }
                         
                         Spacer()
@@ -104,20 +111,20 @@ struct SettingsView: View {
                           .padding(.top, 40.0)
                             .frame(height: 22)
                         
-                        Button(action: {}) {
-                          Text("Restart")
-                           .font(.headline)
-                           .fontWeight(.bold)
-                          
-                          .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-                          .padding()
-                          .overlay(
-                              RoundedRectangle(cornerRadius: 50)
-                               .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
-                               .frame(width: 150.0, height: 40.0)
-                                      )
-                                      
-                 }
+//                        Button(action: {}) {
+//                          Text("Restart")
+//                           .font(.headline)
+//                           .fontWeight(.bold)
+//
+//                          .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
+//                          .padding()
+//                          .overlay(
+//                              RoundedRectangle(cornerRadius: 50)
+//                               .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
+//                               .frame(width: 150.0, height: 40.0)
+//                                      )
+//
+//                 }
                         
                     }
                     .frame(maxWidth: 500)
