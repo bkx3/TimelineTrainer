@@ -16,9 +16,15 @@ struct SettingsView: View {
                     Spacer()
                     VStack (spacing: 10) {
                         
-                        Text("Timed Workout")
-                            .font(.largeTitle)
-                            .padding(.top)
+                        if selectedWorkout == TimerType.countUp {
+                            Text("Timed Workout")
+                                .font(.largeTitle)
+                                .padding(.top)
+                        } else {
+                            Text("AMRAP Countdown")
+                                .font(.largeTitle)
+                                .padding(.top)
+                        }
                       
                         
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
@@ -93,7 +99,7 @@ struct SettingsView: View {
                         
                     }
                     .frame(maxWidth: 500)
-                    .frame(height: 450)
+                    .frame(height: 600)
                     .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(#colorLiteral(red: 0.8705882353, green: 0.8941176471, blue: 0.9450980392, alpha: 1))]), startPoint: .top, endPoint: .bottom))
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)            .padding(.horizontal, 30)
