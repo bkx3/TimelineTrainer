@@ -6,14 +6,13 @@
 //  Copyright © 2020 Brian King. All rights reserved.
 //
 
+
 import SwiftUI
-import Combine
 
 struct ContentView: View {
     var body: some View {
         VStack {
-//            TimerView(target: .down(from: 60))
-            Text("butts")
+            TimerView(target: .down(from: 60))
         }
     }
 }
@@ -23,4 +22,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
