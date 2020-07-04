@@ -46,12 +46,23 @@ struct TimerView: View {
                          alignment: .center)
                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
             
-            HStack{
+            HStack(spacing: 100.0){
+                
+                
             // Pause/Resume button
             Button(action: self.timer.toggleRunningState) {
+                Circle()
+                .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 6)
+                .frame(width: 88, height: 88)
+                
+                    .overlay(
                 Image(systemName: self.timer.isRunning ? "pause.fill" : "play.fill")
+                )
             }.font(.largeTitle)
             .animation(.default)
+                
+                
+                
             
             // Restart Button
             Button(action:self.timer.start) {
