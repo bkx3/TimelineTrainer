@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @SceneStorage("TimerType") var selectedWorkout = TimerType.countUp
+    @State var selectedWorkout = TimerType.countUp
     
     var body: some View {
          VStack {
@@ -30,7 +30,8 @@ struct SettingsView: View {
                         }
                         .padding(.bottom)
                         
-                        Picker(selection: $selectedWorkout, label: Text("Pick workout")) /*@START_MENU_TOKEN@*/{
+                        Picker(selection: $selectedWorkout, label: Text("Pick workout"))
+                        {
                             ForEach(TimerType.allCases, id: \.self) {
                                 Text($0.rawValue)
                             }
