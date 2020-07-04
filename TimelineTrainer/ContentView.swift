@@ -13,6 +13,7 @@ struct ContentView: View {
     
     @State var showSettings = false
     @State var viewState = CGSize.zero
+    @State var roundsComplete = 3
 
     @ObservedObject var settings = Settings()
     
@@ -22,33 +23,40 @@ struct ContentView: View {
         
         ZStack {
             VStack {
+                
+                //timer
                 if settings.selectedWorkout == TimerType.countDown {
                     TimerView(target: .down(from: 60))
                 } else {
                     TimerView(target: .up(to: 100))
                 }
-//                HStack{
-//                                       Spacer()
-//                                       ForEach(0..<self.roundsGoal, id:\.self){i in
-//                                           Group{
-//                                               if self.roundsGoal < 10 {
-//                                                   Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
-//                                                       .font(.system(size: 60))
-//                                                       .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
-//
-//                                                   )
-//                                               } else {
-//                                                    Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
-//                                                        .font(.system(size: 30))
-//                                                        .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
-//
-//                                                    )
-//                                               }
-//                                             Spacer()
-//                                           }
-//                                       }
-//                                   }
-//                                   .padding(.bottom, 75.0)
+                //end timer
+                
+                //rounds counters
+                Text(" ")
+                HStack{
+                   Spacer()
+                    ForEach(0..<settings.desiredRounds, id:\.self){i in
+                       Group{
+                           if settings.desiredRounds < 10 {
+                               Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+                                   .font(.system(size: 60))
+                                   .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
+
+                               )
+                           } else {
+                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+                                    .font(.system(size: 30))
+                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
+
+                                                    )
+                                               }
+                                             Spacer()
+                                           }
+                                       }
+                                   }
+                                   .padding(.bottom, 75.0)
+                //end rounds counters
                                   
                 Spacer()
                 Text("\(settings.desiredRounds) Rounds")
