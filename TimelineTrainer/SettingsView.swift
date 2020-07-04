@@ -16,7 +16,7 @@ class Settings: ObservableObject {
 
 struct SettingsView: View {
     
-    @State private var settings = Settings()
+    @ObservedObject var settings = Settings()
     
 //    @State var selectedWorkout = TimerType.countUp
 //    @State var desiredRounds: Int = 0
@@ -24,6 +24,7 @@ struct SettingsView: View {
 
     
     var body: some View {
+        
          VStack {
                     Spacer()
                     VStack (spacing: 10) {
@@ -119,7 +120,7 @@ struct SettingsView: View {
                           .padding(.top, 40.0)
                             .frame(height: 22)
                         
-//                        Button(action: {}) {
+//                        Button() {
 //                          Text("Restart")
 //                           .font(.headline)
 //                           .fontWeight(.bold)

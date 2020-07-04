@@ -58,7 +58,7 @@ struct ContentView: View {
                 Spacer()
             } //that was the VStack
             
-            SettingsView()
+            SettingsView(settings: self.settings)
                        .background(Color.black.opacity(0.001))
                        .offset(y: showSettings ? 0 : 900)
                        .offset(y: viewState.height)
