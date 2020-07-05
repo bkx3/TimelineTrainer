@@ -144,7 +144,7 @@ extension TimerView {
         }
         
         func start() {
-            isRunning = true
+            isRunning = false
             startDate = Date()
             time = 0
             prevTime = 0

@@ -13,9 +13,10 @@ struct ContentView: View {
     
     @State var showSettings = false
     @State var viewState = CGSize.zero
-    @State var roundsComplete = 3
+    @State var roundsComplete = 0
 
     @ObservedObject var settings = Settings()
+    @ObservedObject var timerView = TimerView.Timer()
     
     var body: some View {
         
@@ -31,6 +32,43 @@ struct ContentView: View {
                     TimerView(target: .up(to: 100))
                 }
                 //end timer
+                
+                //big button
+                if settings.desiredRounds - self.roundsComplete == 1 {
+                    Button(action: {self.roundsComplete += 1}) {
+                                               Text("Finish Workout")
+                                                   .font(.largeTitle)
+                                                   .fontWeight(.bold)
+                                                   .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                                                   .frame(width: 350, height: 88)
+                                                   
+                                                   .overlay(
+                                                   RoundedRectangle(cornerRadius: 50)
+                                                   .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                                   .frame(width: 350, height: 88)
+                                                   )
+                                                   
+                                               }
+                                              
+                                           } else {
+                                               Button(action: {self.roundsComplete += 1}) {
+                                               Text("New Round")
+                                                   .font(.largeTitle)
+                                                   .fontWeight(.bold)
+                                                   .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                                                   .frame(width: 350, height: 88)
+                                                   
+                                                   .overlay(
+                                                   RoundedRectangle(cornerRadius: 50)
+                                                   .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                                   .frame(width: 350, height: 88)
+                                                   )
+                                                   
+                                               }
+                                               
+                                           }
+                
+                //end big button
                 
                 //rounds counters
                 Text(" ")
