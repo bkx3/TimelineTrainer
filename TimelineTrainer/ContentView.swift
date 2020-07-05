@@ -29,7 +29,7 @@ struct ContentView: View {
                 if settings.selectedWorkout == TimerType.countDown {
                     TimerView(target: .down(from: 60))
                 } else {
-                    TimerView(target: .up(to: 100))
+                    TimerView(target: .up(to: 9900))
                 }
                 //end timer
                 
@@ -102,7 +102,7 @@ struct ContentView: View {
                    self.showSettings.toggle()
                 })
                 {
-                    Text("Settings")
+                    Text("Pause timer, mess with settings.")
                         .font(.title)
                 }
                 Spacer()

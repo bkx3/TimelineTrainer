@@ -16,8 +16,9 @@ class Settings: ObservableObject {
 
 struct SettingsView: View {
     
-    @ObservedObject var settings = Settings()
-    
+    @ObservedObject var settings: Settings
+    @ObservedObject var timerView = TimerView.Timer()
+
 //    @State var selectedWorkout = TimerType.countUp
 //    @State var desiredRounds: Int = 0
 //    @State var desiredTime: TimeInterval = 0
@@ -102,16 +103,16 @@ struct SettingsView: View {
                                   .frame(height: 22)
                         
                         
-                          Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                                   Text("Start in 30s")
+                        Button(action: {timerView.end()}) {
+                                   Text("Reset Timer")
                                     .font(.headline)
                                     .fontWeight(.bold)
                                    
-                                   .foregroundColor(Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)))
+                                   .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
                                    .padding()
                                    .overlay(
                                        RoundedRectangle(cornerRadius: 50)
-                                        .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 3)
+                                        .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
                                         .frame(width: 150.0, height: 40.0)
                                                )
                                                
