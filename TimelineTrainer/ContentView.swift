@@ -95,7 +95,7 @@ struct ContentView: View {
                 Spacer()
                 Text("\(settings.desiredRounds) Rounds")
                 Button(action:{
-                   self.showSettings.toggle()
+                    self.showSettings.toggle(); timer.pause()
                 })
                 {
                     Text("Pause timer, mess with settings.")
@@ -115,7 +115,7 @@ struct ContentView: View {
                                }
                            .onEnded { value in
                            if self.viewState.height > 50 {
-                               self.showSettings = false
+                            self.showSettings = false; timer.resume()
                            }
                                self.viewState = .zero
                                }
