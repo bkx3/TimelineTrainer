@@ -31,7 +31,7 @@ struct ContentView: View {
                 
                 //big button
                 if settings.desiredRounds - self.roundsComplete == 1 {
-                    Button(action: {self.roundsComplete += 1}) {
+                    Button(action: {self.roundsComplete += 1 ; timer.toggleRunningState()}) {
                                                Text("Finish Workout")
                                                    .font(.largeTitle)
                                                    .fontWeight(.bold)
@@ -74,13 +74,13 @@ struct ContentView: View {
                        Group{
                         if self.settings.desiredRounds < 10 {
                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
-                                   .font(.system(size: 60))
+                                   .font(.system(size: 40))
                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
 
                                )
                            } else {
                                 Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
-                                    .font(.system(size: 30))
+                                    .font(.system(size: 20))
                                     .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
 
                                                     )
@@ -104,7 +104,7 @@ struct ContentView: View {
                 Spacer()
             } //that was the VStack
             
-            SettingsView(settings: self.settings)
+            SettingsView(settings: settings, timerView: timer)
                        .background(Color.black.opacity(0.001))
                        .offset(y: showSettings ? 0 : 900)
                        .offset(y: viewState.height)

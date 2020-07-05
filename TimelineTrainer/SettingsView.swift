@@ -17,13 +17,8 @@ class Settings: ObservableObject {
 struct SettingsView: View {
     
     @ObservedObject var settings: Settings
-    @ObservedObject var timerView = TimerView.Timer()
+    @ObservedObject var timerView: TimerView.Timer
 
-//    @State var selectedWorkout = TimerType.countUp
-//    @State var desiredRounds: Int = 0
-//    @State var desiredTime: TimeInterval = 0
-
-    
     var body: some View {
         
          VStack {
@@ -120,21 +115,7 @@ struct SettingsView: View {
                             Spacer()
                           .padding(.top, 40.0)
                             .frame(height: 22)
-                        
-//                        Button() {
-//                          Text("Restart")
-//                           .font(.headline)
-//                           .fontWeight(.bold)
-//
-//                          .foregroundColor(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
-//                          .padding()
-//                          .overlay(
-//                              RoundedRectangle(cornerRadius: 50)
-//                               .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
-//                               .frame(width: 150.0, height: 40.0)
-//                                      )
-//
-//                 }
+                    
                         
                     }
                     //Build out the window
