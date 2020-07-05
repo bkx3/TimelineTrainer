@@ -112,7 +112,7 @@ extension TimerView {
         private var currentDate: Date
         private var prevTime: TimeInterval = 0
         
-        let target: Target?
+        var target: Target?
         
         @Published var time: TimeInterval = 0
         @Published var isRunning: Bool = false

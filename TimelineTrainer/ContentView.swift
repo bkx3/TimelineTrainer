@@ -16,7 +16,7 @@ struct ContentView: View {
     @State var roundsComplete = 0
 
     @ObservedObject var settings = Settings()
-    @ObservedObject var timerView = TimerView.Timer()
+    @ObservedObject var timer = TimerView.Timer()
     
     var body: some View {
         
@@ -26,11 +26,7 @@ struct ContentView: View {
             VStack {
                 
                 //timer
-                if settings.selectedWorkout == TimerType.countDown {
-                    TimerView(target: .down(from: 60))
-                } else {
-                    TimerView(target: .up(to: 9900))
-                }
+                TimerView(timer: timer)
                 //end timer
                 
                 //big button
@@ -76,7 +72,7 @@ struct ContentView: View {
                    Spacer()
                     ForEach(0..<settings.desiredRounds, id:\.self){i in
                        Group{
-                           if settings.desiredRounds < 10 {
+                        if self.settings.desiredRounds < 10 {
                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
                                    .font(.system(size: 60))
                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
@@ -126,6 +122,15 @@ struct ContentView: View {
                                    )
             
         } //That was the ZStack
+        
+        .onChange(of: settings.selectedWorkout) { workout in
+                            if workout == .countDown {
+                                self.timer.target = .down(from: 60)
+                            } else {
+                                self.timer.target = .up(to: 60)
+                            }
+                            self.timer.end()
+                        }
     }
 }
 
