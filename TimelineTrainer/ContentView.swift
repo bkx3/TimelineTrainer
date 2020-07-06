@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var showSettings = false
+    @State var showSettings: Bool = false
     @State var viewState = CGSize.zero
     @State var roundsComplete = 0
 
@@ -110,80 +110,59 @@ struct ContentView: View {
                 Spacer()
                 
                 
-                //temporary playpause button
-                Button(action:{
+                Group{
+                 if self.timer.isRunning {
+                    Button(action:{
                     self.showSettings.toggle() ; timer.pause()
                     })
-                    {
-                   Circle()
-                       .stroke(Color(.red), lineWidth: 4)
-                       .frame(width: 88, height: 88)
+                            {
+                           Circle()
+                               .stroke(Color(.red), lineWidth: 4)
+                               .frame(width: 88, height: 88)
 
-                       .overlay(
-                       Image(systemName: "pause.fill")
-                       )
-                           }.font(.system(size: 50))
-                .padding(.bottom, 55.0)
-                           .foregroundColor(.red)
-                            .animation(.default)
-        
-                //playpause button is broken
-                
-                
-                
-//                Group
-//                { if self.timer.isRunning {
-//                    Button(action:{
-//                    self.showSettings.toggle() ; timer.pause()
-//                    })
-//                    {
-//                           Circle()
-//                               .stroke(Color(.red), lineWidth: 4)
-//                               .frame(width: 88, height: 88)
-//
-//                               .overlay(
-//                               Image(systemName: "pause.fill")
-//                               )
-//                                   }.font(.system(size: 50))
-//                                   .foregroundColor(.red)
-//                                    .animation(.default)
-//                } else if settings.desiredRounds == self.roundsComplete {
-//                    Button(action: {self.showSettings.toggle()}) {
-//                               Circle()
-//                                   .stroke(Color(.blue), lineWidth: 4)
-//                                   .frame(width: 88, height: 88)
-//
-//                                   .overlay(
-//                               Image(systemName: "gear")
-//                               )
-//                                   }.font(.system(size: 50))
-//                                   .foregroundColor(.blue)
-//                                    .animation(.default)
-//
-//                } else {
-//                    Button(action: self.showSettings.toggle()) {
-//                               Circle()
-//                                   .stroke(Color("TrainerGreen"), lineWidth: 4)
-//                                   .frame(width: 88, height: 88)
-//
-//                                   .overlay(
-//                               Image(systemName: "play.fill")
-//                                .offset(x: 4)
-//                               )
-//                                   }.font(.system(size: 50))
-//                                   .foregroundColor(Color("TrainerGreen"))
-//                                    .animation(.default)                }
-//
-//
-//                }
-//                .padding(.bottom, 55.0)
+                               .overlay(
+                               Image(systemName: "pause.fill")
+                               )
+                                   }.font(.system(size: 50))
+                                   .foregroundColor(.red)
+                                    .animation(.default)
+                    
+                } else if settings.desiredRounds == self.roundsComplete {
+                    Button(action: {self.showSettings.toggle()}) {
+                               Circle()
+                                   .stroke(Color(.blue), lineWidth: 4)
+                                   .frame(width: 88, height: 88)
+
+                                   .overlay(
+                               Image(systemName: "gear")
+                               )
+                                   }.font(.system(size: 50))
+                                   .foregroundColor(.blue)
+                                    .animation(.default)
+
+                } else {
+                    Button(action: {self.showSettings.toggle()}) {
+                               Circle()
+                                   .stroke(Color("TrainerGreen"), lineWidth: 4)
+                                   .frame(width: 88, height: 88)
+
+                                   .overlay(
+                               Image(systemName: "play.fill")
+                                .offset(x: 4)
+                               )
+                                   }.font(.system(size: 50))
+                                   .foregroundColor(Color("TrainerGreen"))
+                                    .animation(.default)                }
+
+                } //end group
+                .padding(.all)
                
-
-            } //that was the VStack
+            }
+             //that was the VStack
             
             SettingsView(settings: settings, timerView: timer)
                        .background(Color.black.opacity(0.001))
-                       .offset(y: showSettings ? 0 : 900)
+                       .offset(y: showSettings ? 0 : 1200)
                        .offset(y: viewState.height)
                        .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
                        .gesture(
