@@ -160,33 +160,45 @@ struct ContentView: View {
             }
              //that was the VStack
             
-            SettingsView(settings: settings, timerView: timer)
-                       .background(Color.black.opacity(0.001))
-                       .offset(y: showSettings ? 0 : 1200)
-                       .offset(y: viewState.height)
-                       .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
-                       .gesture(
-                           DragGesture() .onChanged { value in
-                           self.viewState = value.translation
+            if self.showSettings == true {
+                SettingsView(settings: settings, timerView: timer)
+                           .background(Color.black.opacity(0.001))
+//                           .offset(y: showSettings ? 0 : 1200)
+                           .offset(y: viewState.height)
+                            .transition(.move(edge: .bottom))
+                           .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
+                           .gesture(
+                               DragGesture() .onChanged { value in
+                               self.viewState = value.translation
+                                   }
+                               .onEnded { value in
+                               if self.viewState.height > 50 {
+                                self.showSettings = false; timer.resume()
                                }
-                           .onEnded { value in
-                           if self.viewState.height > 50 {
-                            self.showSettings = false; timer.resume()
-                           }
-                               self.viewState = .zero
-                               }
-                                   )
+                                   self.viewState = .zero
+                                   }
+                       )
+                    .onTapGesture {
+                        withAnimation(Animation.spring()){
+                            self.showSettings.toggle()
+                        }
+                    }
+            } else {
+                /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
+            }
+
             
-        }
+        } //ends Zstack
+        
         .background(Color(UIColor.systemBackground))
         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
 //That was the ZStack
         
         .onChange(of: settings.selectedWorkout) { workout in
                             if workout == .countDown {
-                                self.timer.target = .down(from: 60)
+                                self.timer.target = .down(from: settings.desiredTime)
                             } else {
-                                self.timer.target = .up(to: 60)
+                                self.timer.target = .up(to: settings.desiredTime)
                             }
                             self.timer.end()
                         }

@@ -12,6 +12,7 @@ class Settings: ObservableObject {
     @Published var selectedWorkout = TimerType.countUp
     @Published var desiredRounds: Int = 5
     @Published var desiredTime: TimeInterval = 0
+    @Published var userTime: Int = 0
 }
 
 struct SettingsView: View {
@@ -77,6 +78,23 @@ struct SettingsView: View {
                                 Text("rounds")
                             }
                         }
+                        //time picker
+                        HStack {
+                            Picker("Number of minutes", selection: $settings.desiredTime){
+                                ForEach(1..<60){
+                                    Text("\($0)")
+                                }
+                            }
+                            .labelsHidden()
+                            .frame(width: 80, height: 80)
+                            .clipped()
+                            if settings.desiredTime == 1 {
+                            Text("minute")
+                            } else {
+                                Text("minutes")
+                            }
+                        }
+                     
                         
                         Spacer()
                         

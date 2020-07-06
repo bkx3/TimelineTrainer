@@ -149,6 +149,7 @@ extension TimerView {
             startDate = Date()
             time = 0
             prevTime = 0
+            UIApplication.shared.isIdleTimerDisabled = true
             
             switch target {
             case .down(let countdown):
@@ -183,6 +184,7 @@ extension TimerView {
             startDate = Date()
             time = 0
             prevTime = 0
+            UIApplication.shared.isIdleTimerDisabled = false
         }
         
         func toggleRunningState() {
