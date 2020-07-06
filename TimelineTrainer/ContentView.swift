@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var showSettings = false
+    @State var showSettings = true
     @State var viewState = CGSize.zero
     @State var roundsComplete = 0
 
@@ -176,7 +176,10 @@ struct ContentView: View {
                                }
                                    )
             
-        } //That was the ZStack
+        }
+        .background(Color(UIColor.systemBackground))
+        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+//That was the ZStack
         
         .onChange(of: settings.selectedWorkout) { workout in
                             if workout == .countDown {
@@ -191,6 +194,12 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+               ContentView()
+                  .environment(\.colorScheme, .light)
+
+               ContentView()
+                  .environment(\.colorScheme, .dark)
+            }
     }
 }

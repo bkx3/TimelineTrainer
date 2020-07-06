@@ -37,20 +37,20 @@ struct SettingsView: View {
                       
                         
                        
-                            if settings.desiredRounds == 0 {
-                                Text("As many rounds as possible")
-                            } else {
-                                if settings.desiredRounds == 1 {
-                                Text("\(settings.desiredRounds) round")
-                                } else {
-                                    Text("\(settings.desiredRounds) rounds")
-                                }
-                            }
-                        
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                        Text("Goal: 25m 00s")
-                        }
-                        .padding(.bottom)
+//                            if settings.desiredRounds == 0 {
+//                                Text("As many rounds as possible")
+//                            } else {
+//                                if settings.desiredRounds == 1 {
+//                                Text("\(settings.desiredRounds) round")
+//                                } else {
+//                                    Text("\(settings.desiredRounds) rounds")
+//                                }
+//                            }
+//                        
+//                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+//                        Text("Goal: 25m 00s")
+//                        }
+//                        .padding(.bottom)
                         
                         Picker(selection: $settings.selectedWorkout, label: Text("Pick workout"))
                         {
@@ -121,7 +121,7 @@ struct SettingsView: View {
                     //Build out the window
                     .frame(maxWidth: 500)
                     .frame(height: 600)
-                    .background(LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)), Color(#colorLiteral(red: 0.8705882353, green: 0.8941176471, blue: 0.9450980392, alpha: 1))]), startPoint: .top, endPoint: .bottom))
+                    .background(LinearGradient(gradient: Gradient(colors: [Color("SettingsGradTop"), Color("SettingsGradBottom")]), startPoint: .top, endPoint: .bottom))
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 20)            .padding(.horizontal, 30)
                    Spacer()
