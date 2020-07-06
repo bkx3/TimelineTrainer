@@ -29,6 +29,35 @@ struct ContentView: View {
                 TimerView(timer: timer)
                 //end timer
                 
+                //rounds counters
+                Text(" ")
+                HStack{
+                   Spacer()
+                    ForEach(0..<settings.desiredRounds, id:\.self){i in
+                       Group{
+                        if self.settings.desiredRounds < 10 {
+                               Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+                                .font(Font.title.weight(.bold))
+                                .foregroundColor(Color.gray)
+
+                               
+                           } else {
+                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
+                                    .font(Font.title.weight(.bold))
+                                    .foregroundColor(Color("TrainerGreen")
+
+                                                    )
+                                               }
+                                             Spacer()
+                                           }
+                                       }
+                                   }
+                                   .padding(.bottom, 55.0)
+                //end rounds counters
+                Text("\(self.roundsComplete)/5 COMPLETE")
+                    .font(Font.system(size: 45, weight: .semibold))
+                    .foregroundColor(Color.gray)
+                
                 //big button
                 if settings.desiredRounds - self.roundsComplete == 1 {
                     Button(action: {self.roundsComplete += 1 ; timer.toggleRunningState()}) {
@@ -43,6 +72,7 @@ struct ContentView: View {
                                                    .stroke(Color("TrainerGreen"), lineWidth: 6)
                                                    .frame(width: 350, height: 88)
                                                    )}
+                        .padding(.top, 55.0)
                                                    
                                         } else if settings.desiredRounds == self.roundsComplete {
                                             Button(action: {self.roundsComplete += 1}) {
@@ -71,16 +101,17 @@ struct ContentView: View {
                                                    RoundedRectangle(cornerRadius: 50)
                                                    .stroke(Color("TrainerGreen"), lineWidth: 6)
                                                    .frame(width: 350, height: 88)
-                                                   )
-                                                   
-                                               }
+                                                   )}
+                                                .padding(.top, 55.0)
                                                
                                            }
                 
                 //end big button
+                Spacer()
                 
                 //playpause button
-                if self.timer.isRunning {
+                Group
+                { if self.timer.isRunning {
                     Button(action:{
                     self.showSettings.toggle() ; timer.pause()
                     })
@@ -109,45 +140,23 @@ struct ContentView: View {
                                     .animation(.default)
                     
                 } else {
-                    Button(action: self.timer.toggleRunningState) {
+                    Button(action: self.showSettings.toggle()) {
                                Circle()
                                    .stroke(Color("TrainerGreen"), lineWidth: 4)
                                    .frame(width: 88, height: 88)
                
                                    .overlay(
                                Image(systemName: "play.fill")
+                                .offset(x: 4)
                                )
                                    }.font(.system(size: 50))
                                    .foregroundColor(Color("TrainerGreen"))
                                     .animation(.default)                }
                     
-                //rounds counters
-                Text(" ")
-                HStack{
-                   Spacer()
-                    ForEach(0..<settings.desiredRounds, id:\.self){i in
-                       Group{
-                        if self.settings.desiredRounds < 10 {
-                               Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
-                                   .font(.system(size: 40))
-                                   .foregroundColor(Color("TrainerGreen")
-
-                               )
-                           } else {
-                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(Color("TrainerGreen")
-
-                                                    )
-                                               }
-                                             Spacer()
-                                           }
-                                       }
-                                   }
-                                   .padding(.bottom, 75.0)
-                //end rounds counters
-                                  
-                Spacer()
+               
+                }
+                .padding(.bottom, 55.0)
+               
 
             } //that was the VStack
             
