@@ -65,7 +65,34 @@ struct ContentView: View {
                                            }
                 
                 //end big button
-                
+                if self.timer.isRunning {
+                    Button(action:{
+                    self.showSettings.toggle() ; timer.pause()
+                    })
+                    {
+                           Circle()
+                               .stroke(Color(.red), lineWidth: 4)
+                               .frame(width: 88, height: 88)
+           
+                               .overlay(
+                               Image(systemName: "pause.fill")
+                               )
+                                   }.font(.system(size: 50))
+                                   .foregroundColor(.red)
+                                    .animation(.default)
+                } else {
+                    Button(action: self.timer.toggleRunningState) {
+                               Circle()
+                                   .stroke(Color(.green), lineWidth: 4)
+                                   .frame(width: 88, height: 88)
+               
+                                   .overlay(
+                               Image(systemName: "play.fill")
+                               )
+                                   }.font(.system(size: 50))
+                                   .foregroundColor(.green)
+                                    .animation(.default)                }
+                    
                 //rounds counters
                 Text(" ")
                 HStack{
@@ -93,15 +120,15 @@ struct ContentView: View {
                 //end rounds counters
                                   
                 Spacer()
-                Text("\(settings.desiredRounds) Rounds")
-                Button(action:{
-                    self.showSettings.toggle(); timer.pause()
-                })
-                {
-                    Text("Pause timer, mess with settings.")
-                        .font(.title)
-                }
-                Spacer()
+//                Text("\(settings.desiredRounds) Rounds")
+//                Button(action:{
+//                    self.showSettings.toggle(); timer.pause()
+//                })
+//                {
+//                    Text("Pause timer, mess with settings.")
+//                        .font(.title)
+//                }
+//                Spacer()
             } //that was the VStack
             
             SettingsView(settings: settings, timerView: timer)
