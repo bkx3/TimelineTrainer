@@ -42,9 +42,22 @@ struct ContentView: View {
                                                    RoundedRectangle(cornerRadius: 50)
                                                    .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
                                                    .frame(width: 350, height: 88)
-                                                   )
+                                                   )}
                                                    
-                                               }
+                                        } else if settings.desiredRounds == self.roundsComplete {
+                                            Button(action: {self.roundsComplete += 1}) {
+                                            Text("Workout Complete")
+                                                .font(.largeTitle)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)))
+                                                .frame(width: 350, height: 88)
+                                                
+                                                .overlay(
+                                                RoundedRectangle(cornerRadius: 50)
+                                                .stroke(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)), lineWidth: 6)
+                                                .frame(width: 350, height: 88)
+                                                )}
+                                                .disabled(true)
                                               
                                            } else {
                                                Button(action: {self.roundsComplete += 1}) {
@@ -65,6 +78,8 @@ struct ContentView: View {
                                            }
                 
                 //end big button
+                
+                //playpause button
                 if self.timer.isRunning {
                     Button(action:{
                     self.showSettings.toggle() ; timer.pause()
@@ -80,6 +95,19 @@ struct ContentView: View {
                                    }.font(.system(size: 50))
                                    .foregroundColor(.red)
                                     .animation(.default)
+                } else if settings.desiredRounds == self.roundsComplete {
+                    Button(action: {self.showSettings.toggle()}) {
+                               Circle()
+                                   .stroke(Color(.blue), lineWidth: 4)
+                                   .frame(width: 88, height: 88)
+               
+                                   .overlay(
+                               Image(systemName: "gear")
+                               )
+                                   }.font(.system(size: 50))
+                                   .foregroundColor(.blue)
+                                    .animation(.default)
+                    
                 } else {
                     Button(action: self.timer.toggleRunningState) {
                                Circle()

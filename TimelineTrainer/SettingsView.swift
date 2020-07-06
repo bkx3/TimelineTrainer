@@ -10,7 +10,7 @@ import SwiftUI
 
 class Settings: ObservableObject {
     @Published var selectedWorkout = TimerType.countUp
-    @Published var desiredRounds: Int = 0
+    @Published var desiredRounds: Int = 5
     @Published var desiredTime: TimeInterval = 0
 }
 
