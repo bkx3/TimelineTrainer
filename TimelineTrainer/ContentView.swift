@@ -148,15 +148,7 @@ struct ContentView: View {
                 //end rounds counters
                                   
                 Spacer()
-//                Text("\(settings.desiredRounds) Rounds")
-//                Button(action:{
-//                    self.showSettings.toggle(); timer.pause()
-//                })
-//                {
-//                    Text("Pause timer, mess with settings.")
-//                        .font(.title)
-//                }
-//                Spacer()
+
             } //that was the VStack
             
             SettingsView(settings: settings, timerView: timer)

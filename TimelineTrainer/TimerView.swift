@@ -39,12 +39,13 @@ struct TimerView: View {
         VStack(spacing: 10) {
      
             Text("\(self.timer.timeComponents, formatter: TimerView.Timer.formatter)")
+                .fontWeight(.semibold)
                 .padding(.vertical, 100.0)
-                .font(.system(size: 100, design: .monospaced))
-                   .frame(width: UIScreen.main.bounds.size.width / 1.2,
+                .font(.system(size: 225, design: .monospaced))
+                   .frame(width: UIScreen.main.bounds.size.width / 1.1,
                          height: 250,
                          alignment: .center)
-                       .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                       .foregroundColor(Color("TrainerGreen"))
             
             HStack(spacing: 100.0){
                 
@@ -239,7 +240,7 @@ extension TimerView.Timer {
     // This fits better with SwiftUI IMO
     var timeComponents: DateComponents {
         var components = DateComponents()
-        components.hour = 0
+        //components.hour = 0
         components.minute = 0
         components.second = Int(time)
         return components
