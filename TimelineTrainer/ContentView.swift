@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var showSettings = true
+    @State var showSettings = false
     @State var viewState = CGSize.zero
     @State var roundsComplete = 0
 
@@ -35,12 +35,12 @@ struct ContentView: View {
                                                Text("Finish Workout")
                                                    .font(.largeTitle)
                                                    .fontWeight(.bold)
-                                                   .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                                                   .foregroundColor(Color("TrainerGreen"))
                                                    .frame(width: 350, height: 88)
                                                    
                                                    .overlay(
                                                    RoundedRectangle(cornerRadius: 50)
-                                                   .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                                   .stroke(Color("TrainerGreen"), lineWidth: 6)
                                                    .frame(width: 350, height: 88)
                                                    )}
                                                    
@@ -64,12 +64,12 @@ struct ContentView: View {
                                                Text("New Round")
                                                    .font(.largeTitle)
                                                    .fontWeight(.bold)
-                                                   .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)))
+                                                   .foregroundColor(Color("TrainerGreen"))
                                                    .frame(width: 350, height: 88)
                                                    
                                                    .overlay(
                                                    RoundedRectangle(cornerRadius: 50)
-                                                   .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 6)
+                                                   .stroke(Color("TrainerGreen"), lineWidth: 6)
                                                    .frame(width: 350, height: 88)
                                                    )
                                                    
@@ -111,14 +111,14 @@ struct ContentView: View {
                 } else {
                     Button(action: self.timer.toggleRunningState) {
                                Circle()
-                                   .stroke(Color(.green), lineWidth: 4)
+                                   .stroke(Color("TrainerGreen"), lineWidth: 4)
                                    .frame(width: 88, height: 88)
                
                                    .overlay(
                                Image(systemName: "play.fill")
                                )
                                    }.font(.system(size: 50))
-                                   .foregroundColor(.green)
+                                   .foregroundColor(Color("TrainerGreen"))
                                     .animation(.default)                }
                     
                 //rounds counters
@@ -130,13 +130,13 @@ struct ContentView: View {
                         if self.settings.desiredRounds < 10 {
                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
                                    .font(.system(size: 40))
-                                   .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
+                                   .foregroundColor(Color("TrainerGreen")
 
                                )
                            } else {
                                 Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
                                     .font(.system(size: 20))
-                                    .foregroundColor(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1))
+                                    .foregroundColor(Color("TrainerGreen")
 
                                                     )
                                                }
