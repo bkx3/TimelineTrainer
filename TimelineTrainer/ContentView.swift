@@ -75,7 +75,7 @@ struct ContentView: View {
                         .padding(.top, 55.0)
                                                    
                                         } else if settings.desiredRounds == self.roundsComplete {
-                                            Button(action: {self.roundsComplete += 1}) {
+                                            Button(action: {}) {
                                             Text("Workout Complete")
                                                 .font(.largeTitle)
                                                 .fontWeight(.bold)
@@ -87,6 +87,7 @@ struct ContentView: View {
                                                 .stroke(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)), lineWidth: 6)
                                                 .frame(width: 350, height: 88)
                                                 )}
+//                                                .modifier(Shake())
                                                 .disabled(true)
                                               
                                            } else {
@@ -203,6 +204,17 @@ struct ContentView: View {
                         }
     }
 }
+
+//struct Shake: GeometryEffect {
+//    var amount: CGFloat = 10
+//    var shakesPerUnit = 3
+//
+//    func effectValue(size: CGSize) -> ProjectionTransform {
+//        ProjectionTransform(CGAffineTransform(translationX:
+//            amount * sin(3 * .pi * CGFloat(shakesPerUnit)),
+//            y: 0))
+//    }
+//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

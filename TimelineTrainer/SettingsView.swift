@@ -98,10 +98,7 @@ struct SettingsView: View {
                         
                         Spacer()
                         
-                        //little shit button test
-                        Button(action: {self.settings.desiredTime = Double(120)}) {
-                            Text("Two minute timer set")
-                        }
+                   
                         
                         
                         
@@ -161,8 +158,8 @@ struct SettingsView: View {
         }
     
     enum TimerType: String, CaseIterable {
-        case countUp
-        case countDown
+        case countUp = "Stopwatch"
+        case countDown = "Countdown"
     }
     
 
