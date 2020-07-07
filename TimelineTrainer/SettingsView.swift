@@ -82,7 +82,7 @@ struct SettingsView: View {
                         HStack {
                             Picker("Number of minutes", selection: $settings.desiredTime){
                                 ForEach(1..<60){
-                                    Text("\($0)")
+                                    Text("\($0)").tag( Double($0*60))
                                 }
                             }
                             .labelsHidden()
@@ -98,8 +98,18 @@ struct SettingsView: View {
                         
                         Spacer()
                         
-                      Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                                  Text("Start in 10s")
+                        //little shit button test
+                        Button(action: {self.settings.desiredTime = Double(120)}) {
+                            Text("Two minute timer set")
+                        }
+                        
+                        
+                        
+                        
+                        //start buttons
+                        Button(action: {timerView.start()}
+                               ) {
+                                  Text("Start Now")
                                     .font(.headline)
                                     .fontWeight(.bold)
                                   

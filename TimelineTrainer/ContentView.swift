@@ -163,7 +163,6 @@ struct ContentView: View {
             if self.showSettings == true {
                 SettingsView(settings: settings, timerView: timer)
                            .background(Color.black.opacity(0.001))
-//                           .offset(y: showSettings ? 0 : 1200)
                            .offset(y: viewState.height)
                             .transition(.move(edge: .bottom))
                            .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0))
@@ -178,11 +177,11 @@ struct ContentView: View {
                                    self.viewState = .zero
                                    }
                        )
-                    .onTapGesture {
-                        withAnimation(Animation.spring()){
-                            self.showSettings.toggle()
-                        }
-                    }
+//                    .onTapGesture {
+//                        withAnimation(Animation.spring()){
+//                            self.showSettings.toggle()
+//                        }
+//                    }
             } else {
                 /*@START_MENU_TOKEN@*/EmptyView()/*@END_MENU_TOKEN@*/
             }
