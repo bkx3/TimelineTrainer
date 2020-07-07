@@ -148,15 +148,15 @@ struct ContentView: View {
                                    .frame(width: 88, height: 88)
 
                                    .overlay(
-                               Image(systemName: "play.fill")
-                                .offset(x: 4)
+                               Image(systemName: "gear")
+                                .offset(x: 0)
                                )
                                    }.font(.system(size: 50))
                                    .foregroundColor(Color("TrainerGreen"))
                                     .animation(.default)                }
 
                 } //end group
-                .padding(.all)
+                .padding(.bottom, 55.0)
                
             }
              //that was the VStack

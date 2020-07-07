@@ -8,11 +8,14 @@
 import SwiftUI
 
 
-class Settings: ObservableObject {
+class Settings: ObservableObject, Equatable {
+    static func == (lhs: Settings, rhs: Settings) -> Bool {
+        return lhs.selectedWorkout == rhs.selectedWorkout && lhs.desiredRounds == rhs.desiredRounds && lhs.desiredTime == rhs.desiredTime
+    }
+    
     @Published var selectedWorkout = TimerType.countUp
     @Published var desiredRounds: Int = 5
     @Published var desiredTime: TimeInterval = 0
-    @Published var userTime: Int = 0
 }
 
 struct SettingsView: View {
@@ -98,13 +101,30 @@ struct SettingsView: View {
                         
                         Spacer()
                         
-                   
+                        //resume buttons
+                        Button(action: {timerView.toggleRunningState()}
+                               ) {
+                                  Text("Resume Workout")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                  
+                                  .foregroundColor(Color(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)))
+                                  .padding()
+                                  .overlay(
+                                      RoundedRectangle(cornerRadius: 50)
+                                      .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 3)
+                                        .frame(width: 150.0, height: 40.0)
+                                  )
+                                  
+                      }
+                      .padding(.vertical, 50.0)
+                                  .frame(height: 22)
                         
                         
                         
                         
                         //start buttons
-                        Button(action: {timerView.start()}
+                        Button(action: {timerView.toggleRunningState()}
                                ) {
                                   Text("Start Now")
                                     .font(.headline)
@@ -123,7 +143,7 @@ struct SettingsView: View {
                                   .frame(height: 22)
                         
                         
-                        Button(action: {timerView.end()}) {
+                        Button(action: {timerView.start()}) {
                                    Text("Reset Timer")
                                     .font(.headline)
                                     .fontWeight(.bold)
