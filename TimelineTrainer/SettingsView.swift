@@ -27,7 +27,7 @@ struct SettingsView: View {
         
          VStack {
                     Spacer()
-                    VStack (spacing: 10) {
+                    VStack (spacing: 22) {
                         
                         if settings.selectedWorkout == TimerType.countUp {
                             Text("Timed Workout")
@@ -113,11 +113,11 @@ struct SettingsView: View {
                                   .overlay(
                                       RoundedRectangle(cornerRadius: 50)
                                       .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 3)
-                                        .frame(width: 150.0, height: 40.0)
+                                        .frame(width: 250.0, height: 40.0)
                                   )
                                   
                       }
-                      .padding(.vertical, 50.0)
+                      .padding(.bottom, 7.0)
                                   .frame(height: 22)
                         
                         
@@ -135,7 +135,7 @@ struct SettingsView: View {
                                   .overlay(
                                       RoundedRectangle(cornerRadius: 50)
                                       .stroke(Color(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)), lineWidth: 3)
-                                        .frame(width: 150.0, height: 40.0)
+                                        .frame(width: 250.0, height: 40.0)
                                   )
                                   
                       }
@@ -153,7 +153,7 @@ struct SettingsView: View {
                                    .overlay(
                                        RoundedRectangle(cornerRadius: 50)
                                         .stroke(Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), lineWidth: 3)
-                                        .frame(width: 150.0, height: 40.0)
+                                        .frame(width: 250.0, height: 40.0)
                                                )
                                                
                           }
