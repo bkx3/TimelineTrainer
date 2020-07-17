@@ -87,7 +87,7 @@ struct ContentView: View {
                                                 .stroke(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)), lineWidth: 6)
                                                 .frame(width: 350, height: 88)
                                                 )}
-//                                                .modifier(Shake())
+                                                .padding(.top, 55.0)
                                                 .disabled(true)
                                               
                                            } else {
