@@ -59,7 +59,7 @@ struct ContentView: View {
                                    }
                                    .padding(.bottom, 55.0)
                 //end rounds counters
-                Text("\(self.roundsComplete)/5 COMPLETE")
+                Text("\(self.roundsComplete)/\(settings.desiredRounds) COMPLETE")
                     .font(Font.system(size: 45, weight: .semibold))
                     .foregroundColor(Color.gray)
                 
