@@ -108,6 +108,26 @@ struct ContentView: View {
                                            }
                 
                 //end big button
+                
+                if settings.desiredRounds - self.roundsComplete == 0 {
+                    Button(action: {self.roundsComplete = 0}) {
+                                               Text("Reset Rounds")
+                                                   .font(.largeTitle)
+                                                   .fontWeight(.bold)
+                                                   .foregroundColor(Color("TrainerRed"))
+                                                   .frame(width: 350, height: 88)
+                                                   
+                                                   .overlay(
+                                                   RoundedRectangle(cornerRadius: 50)
+                                                   .stroke(Color("TrainerRed"), lineWidth: 6)
+                                                   .frame(width: 350, height: 88)
+                                                   )}
+                        .padding(.top, 55.0)
+                                                   
+                                        }
+                
+                //end reset button
+                
                 Spacer()
                 
                 
