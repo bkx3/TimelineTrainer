@@ -202,6 +202,14 @@ struct ContentView: View {
                             }
                             self.timer.end()
                         }
+        .onChange(of: settings.desiredTime) { time in
+            if settings.selectedWorkout == .countDown {
+                self.timer.target = .down(from: time)
+            } else {
+                self.timer.target = .up(to: time)
+            }
+            self.timer.end()
+        }
     }
 }
 
