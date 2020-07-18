@@ -40,6 +40,7 @@ struct ContentView: View {
                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
                                 .font(.system(size: 45, weight: .bold))
                                 .foregroundColor(Color("TrainerGreen"))
+                             
 
                                
                            } else {
@@ -50,6 +51,11 @@ struct ContentView: View {
                                              Spacer()
                                            }
                                        }
+               
+                    }
+                .contentShape(Rectangle())
+                .onTapGesture{
+                    self.roundsComplete += 1
                                    }
                                    .padding(.bottom, 55.0)
                 //end rounds counters
@@ -109,7 +115,7 @@ struct ContentView: View {
                 //end big button
                 
                 //temp button to reset rounds
-                if settings.desiredRounds - self.roundsComplete == 0 {
+                if settings.desiredRounds - self.roundsComplete <= 0 {
                     Button(action: {self.roundsComplete = 0}) {
                                                Text("Reset Rounds")
                                                    .font(.largeTitle)
