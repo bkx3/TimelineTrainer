@@ -25,6 +25,7 @@ struct ContentView: View {
         ZStack {
             VStack {
                 
+                Spacer()
                 //timer
                 TimerView(timer: timer)
                 //end timer
@@ -37,16 +38,14 @@ struct ContentView: View {
                        Group{
                         if self.settings.desiredRounds < 10 {
                                Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
-                                .font(Font.title.weight(.bold))
-                                .foregroundColor(Color.gray)
+                                .font(.system(size: 45, weight: .bold))
+                                .foregroundColor(Color("TrainerGreen"))
 
                                
                            } else {
                                 Image(systemName: i < self.roundsComplete ? "circle.fill" : "circle")
                                     .font(Font.title.weight(.bold))
-                                    .foregroundColor(Color("TrainerGreen")
-
-                                                    )
+                                    .foregroundColor(Color("TrainerGreen"))
                                                }
                                              Spacer()
                                            }
@@ -109,6 +108,7 @@ struct ContentView: View {
                 
                 //end big button
                 
+                //temp button to reset rounds
                 if settings.desiredRounds - self.roundsComplete == 0 {
                     Button(action: {self.roundsComplete = 0}) {
                                                Text("Reset Rounds")
