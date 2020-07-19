@@ -63,8 +63,24 @@ struct ContentView: View {
                     .font(Font.system(size: 45, weight: .semibold))
                     .foregroundColor(Color.gray)
                 
-                //big button
-                if settings.desiredRounds - self.roundsComplete == 1 {
+                //super button
+                
+                if self.roundsComplete == 0, timer.isRunning == false {
+                    Button(action: {timer.resume()}) {
+                                               Text("Begin Workout")
+                                                   .font(.largeTitle)
+                                                   .fontWeight(.bold)
+                                                   .foregroundColor(Color("TrainerGreen"))
+                                                   .frame(width: 350, height: 88)
+                                                   
+                                                   .overlay(
+                                                   RoundedRectangle(cornerRadius: 50)
+                                                   .stroke(Color("TrainerGreen"), lineWidth: 6)
+                                                   .frame(width: 350, height: 88)
+                                                   )}
+                        .padding(.top, 55.0)
+                    
+            } else if settings.desiredRounds - self.roundsComplete == 1 {
                     Button(action: {self.roundsComplete += 1 ; timer.toggleRunningState()}) {
                                                Text("Finish Workout")
                                                    .font(.largeTitle)
@@ -199,7 +215,7 @@ struct ContentView: View {
                                    }
                                .onEnded { value in
                                if self.viewState.height > 50 {
-                                self.showSettings = false; timer.resume()
+                                self.showSettings = false
                                }
                                    self.viewState = .zero
                                    }
