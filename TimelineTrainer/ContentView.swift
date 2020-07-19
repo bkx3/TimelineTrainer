@@ -18,6 +18,7 @@ struct ContentView: View {
     @ObservedObject var settings = Settings()
     @ObservedObject var timer = TimerView.Timer()
     
+    @State var tap = false
     
     var body: some View {
         
@@ -83,9 +84,10 @@ struct ContentView: View {
                 }
                 .buttonStyle(SuperButton())
                 .padding(.top, 55.0)
+                
                                                    
                                         } else if settings.desiredRounds <= self.roundsComplete {
-                                            Button(action: {self.roundsComplete = 0}) {
+                                            //Button(action: {self.roundsComplete = 0}) {
                                             Text("Hold to Reset")
                                                 .font(.largeTitle)
                                                 .fontWeight(.bold)
@@ -96,7 +98,13 @@ struct ContentView: View {
                                                 RoundedRectangle(cornerRadius: 50)
                                                 .stroke(Color("TrainerRed"), lineWidth: 6)
                                                 .frame(width: 350, height: 88)
-                                                )}
+                                                )
+                                                .onLongPressGesture(minimumDuration: 2) {
+                                                    self.roundsComplete = 0
+                                                }
+                                            
+                                            
+                                        
                                                 .padding(.top, 55.0)
 
                                               
@@ -111,37 +119,9 @@ struct ContentView: View {
                                                
                                            }
                 
-                //end big button
+                //end SuperButton
                 
-                //temp superbutton
-//                Button(action: {self.roundsComplete += 1})
-//                {
-//                    Text("New Round")
-//                        .fontWeight(.bold)
-//                }
-//                .buttonStyle(SuperButton())
-//                .padding(.top, 55.0)
-
-                
-                //temp button to reset rounds
-//                if settings.desiredRounds - self.roundsComplete <= 0 {
-//                    Button(action: {self.roundsComplete = 0}) {
-//                                               Text("Reset Rounds")
-//                                                   .font(.largeTitle)
-//                                                   .fontWeight(.bold)
-//                                                   .foregroundColor(Color("TrainerRed"))
-//                                                   .frame(width: 350, height: 88)
-//
-//                                                   .overlay(
-//                                                   RoundedRectangle(cornerRadius: 50)
-//                                                   .stroke(Color("TrainerRed"), lineWidth: 6)
-//                                                   .frame(width: 350, height: 88)
-//                                                   )}
-//                        .padding(.top, 55.0)
-//
-//                                        }
-                
-                //end reset button
+               
                 
                 Spacer()
                 
@@ -271,7 +251,9 @@ struct SuperButton: ButtonStyle {
             RoundedRectangle(cornerRadius: 50)
             .stroke(Color("TrainerGreen"), lineWidth: 6)
             .frame(width: 350, height: 88)
-            )}
+            )
+            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
+    }
     }
 
 
@@ -284,5 +266,28 @@ struct ContentView_Previews: PreviewProvider {
                ContentView()
                   .environment(\.colorScheme, .dark)
             }
+    }
+}
+
+extension UIView {
+    enum GlowEffect: Float {
+        case small = 0.4, normal = 2, big = 30
+    }
+
+    func doGlowAnimation(withColor color: UIColor, withEffect effect: GlowEffect = .normal) {
+        layer.masksToBounds = false
+        layer.shadowColor = color.cgColor
+        layer.shadowRadius = 0
+        layer.shadowOpacity = 0.8
+        layer.shadowOffset = .zero
+
+        let glowAnimation = CABasicAnimation(keyPath: "shadowRadius")
+        glowAnimation.fromValue = 0
+        glowAnimation.toValue = effect.rawValue
+        glowAnimation.fillMode = .removed
+        glowAnimation.repeatCount = .infinity
+        glowAnimation.duration = 2
+        glowAnimation.autoreverses = true
+        layer.add(glowAnimation, forKey: "shadowGlowingAnimation")
     }
 }
