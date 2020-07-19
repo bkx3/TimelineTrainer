@@ -18,6 +18,7 @@ struct ContentView: View {
     @ObservedObject var settings = Settings()
     @ObservedObject var timer = TimerView.Timer()
     
+    
     var body: some View {
         
 
@@ -63,90 +64,82 @@ struct ContentView: View {
                     .font(Font.system(size: 45, weight: .semibold))
                     .foregroundColor(Color.gray)
                 
-                //super button
+                //begin super button
                 
                 if self.roundsComplete == 0, timer.isRunning == false {
-                    Button(action: {timer.resume()}) {
-                                               Text("Begin Workout")
-                                                   .font(.largeTitle)
-                                                   .fontWeight(.bold)
-                                                   .foregroundColor(Color("TrainerGreen"))
-                                                   .frame(width: 350, height: 88)
-                                                   
-                                                   .overlay(
-                                                   RoundedRectangle(cornerRadius: 50)
-                                                   .stroke(Color("TrainerGreen"), lineWidth: 6)
-                                                   .frame(width: 350, height: 88)
-                                                   )}
-                        .padding(.top, 55.0)
+                    Button(action: {timer.resume()})
+                    {
+                        Text("Begin Workout")
+                            .fontWeight(.bold)
+                    }
+                    .buttonStyle(SuperButton())
+                    .padding(.top, 55.0)
                     
             } else if settings.desiredRounds - self.roundsComplete == 1 {
-                    Button(action: {self.roundsComplete += 1 ; timer.toggleRunningState()}) {
-                                               Text("Finish Workout")
-                                                   .font(.largeTitle)
-                                                   .fontWeight(.bold)
-                                                   .foregroundColor(Color("TrainerGreen"))
-                                                   .frame(width: 350, height: 88)
+                Button(action: {self.roundsComplete += 1 ; timer.toggleRunningState()})
+                {
+                    Text("Finish Workout")
+                        .fontWeight(.bold)
+                }
+                .buttonStyle(SuperButton())
+                .padding(.top, 55.0)
                                                    
-                                                   .overlay(
-                                                   RoundedRectangle(cornerRadius: 50)
-                                                   .stroke(Color("TrainerGreen"), lineWidth: 6)
-                                                   .frame(width: 350, height: 88)
-                                                   )}
-                        .padding(.top, 55.0)
-                                                   
-                                        } else if settings.desiredRounds == self.roundsComplete {
-                                            Button(action: {}) {
-                                            Text("Workout Complete")
+                                        } else if settings.desiredRounds <= self.roundsComplete {
+                                            Button(action: {self.roundsComplete = 0}) {
+                                            Text("Hold to Reset")
                                                 .font(.largeTitle)
                                                 .fontWeight(.bold)
-                                                .foregroundColor(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)))
+                                                .foregroundColor(Color("TrainerRed"))
                                                 .frame(width: 350, height: 88)
                                                 
                                                 .overlay(
                                                 RoundedRectangle(cornerRadius: 50)
-                                                .stroke(Color(#colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)), lineWidth: 6)
+                                                .stroke(Color("TrainerRed"), lineWidth: 6)
                                                 .frame(width: 350, height: 88)
                                                 )}
                                                 .padding(.top, 55.0)
-                                                .disabled(true)
+
                                               
                                            } else {
-                                               Button(action: {self.roundsComplete += 1}) {
-                                               Text("New Round")
-                                                   .font(.largeTitle)
-                                                   .fontWeight(.bold)
-                                                   .foregroundColor(Color("TrainerGreen"))
-                                                   .frame(width: 350, height: 88)
-                                                   
-                                                   .overlay(
-                                                   RoundedRectangle(cornerRadius: 50)
-                                                   .stroke(Color("TrainerGreen"), lineWidth: 6)
-                                                   .frame(width: 350, height: 88)
-                                                   )}
-                                                .padding(.top, 55.0)
+                                            Button(action: {self.roundsComplete += 1})
+                                            {
+                                                Text("New Round")
+                                                    .fontWeight(.bold)
+                                            }
+                                            .buttonStyle(SuperButton())
+                                            .padding(.top, 55.0)
                                                
                                            }
                 
                 //end big button
                 
+                //temp superbutton
+//                Button(action: {self.roundsComplete += 1})
+//                {
+//                    Text("New Round")
+//                        .fontWeight(.bold)
+//                }
+//                .buttonStyle(SuperButton())
+//                .padding(.top, 55.0)
+
+                
                 //temp button to reset rounds
-                if settings.desiredRounds - self.roundsComplete <= 0 {
-                    Button(action: {self.roundsComplete = 0}) {
-                                               Text("Reset Rounds")
-                                                   .font(.largeTitle)
-                                                   .fontWeight(.bold)
-                                                   .foregroundColor(Color("TrainerRed"))
-                                                   .frame(width: 350, height: 88)
-                                                   
-                                                   .overlay(
-                                                   RoundedRectangle(cornerRadius: 50)
-                                                   .stroke(Color("TrainerRed"), lineWidth: 6)
-                                                   .frame(width: 350, height: 88)
-                                                   )}
-                        .padding(.top, 55.0)
-                                                   
-                                        }
+//                if settings.desiredRounds - self.roundsComplete <= 0 {
+//                    Button(action: {self.roundsComplete = 0}) {
+//                                               Text("Reset Rounds")
+//                                                   .font(.largeTitle)
+//                                                   .fontWeight(.bold)
+//                                                   .foregroundColor(Color("TrainerRed"))
+//                                                   .frame(width: 350, height: 88)
+//
+//                                                   .overlay(
+//                                                   RoundedRectangle(cornerRadius: 50)
+//                                                   .stroke(Color("TrainerRed"), lineWidth: 6)
+//                                                   .frame(width: 350, height: 88)
+//                                                   )}
+//                        .padding(.top, 55.0)
+//
+//                                        }
                 
                 //end reset button
                 
@@ -265,6 +258,22 @@ struct ContentView: View {
 //            y: 0))
 //    }
 //}
+
+struct SuperButton: ButtonStyle {
+    
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .font(.largeTitle)
+            .foregroundColor(Color("TrainerGreen"))
+            .frame(width: 350, height: 88)
+
+            .overlay(
+            RoundedRectangle(cornerRadius: 50)
+            .stroke(Color("TrainerGreen"), lineWidth: 6)
+            .frame(width: 350, height: 88)
+            )}
+    }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
