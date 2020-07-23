@@ -24,16 +24,29 @@ struct ContentView: View {
     @State var tap = false
     @State var press = false
     
+    func advanceRounds() {
+        if settings.desiredRounds - self.roundsComplete == 1 {
+            self.roundsComplete += 1 ; timer.toggleRunningState()
+        }
+        
+       else if self.roundsComplete >= settings.desiredRounds {
+        }
+       
+       else {
+            self.roundsComplete += 1
+        }
+                       }
+    
     var body: some View {
-        
-
-        
         ZStack {
             VStack {
                 
                 Spacer()
                 //timer
                 TimerView(timer: timer)
+                    .onTapGesture{
+                        advanceRounds()
+                                       }
                 //end timer
                 
                 //rounds counters
@@ -61,7 +74,7 @@ struct ContentView: View {
                     }
                 .contentShape(Rectangle())
                 .onTapGesture{
-                    self.roundsComplete += 1
+                    advanceRounds()
                                    }
                                    .padding(.bottom, 55.0)
                 //end rounds counters
