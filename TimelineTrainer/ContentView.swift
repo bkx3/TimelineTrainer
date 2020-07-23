@@ -37,6 +37,20 @@ struct ContentView: View {
         }
                        }
     
+    func buildSuperButton(label : String) -> some View {
+                    return
+                        Button(action: {advanceRounds()})
+                        {
+                            Text("\(label)")
+                                .fontWeight(.bold)
+                        }
+                        .buttonStyle(SuperButton())
+                        .padding(.top, 55.0)
+                        .onTapGesture{
+                            advanceRounds()
+                                           }
+            }
+            
     var body: some View {
         ZStack {
             VStack {
@@ -91,26 +105,13 @@ struct ContentView: View {
                     }
                 }
                 
-                //begin super button
+                //Begin SuperButton 2.0
                 
-                if self.roundsComplete == 0, timer.isRunning == false {
-                    Button(action: {timer.resume()})
-                    {
-                        Text("Begin Workout")
-                            .fontWeight(.bold)
-                    }
-                    .buttonStyle(SuperButton())
-                    .padding(.top, 55.0)
+            if self.roundsComplete == 0, timer.isRunning == false {
+                   buildSuperButton(label: "Begin Workout")
                     
             } else if settings.desiredRounds - self.roundsComplete == 1 {
-                Button(action: {self.roundsComplete += 1 ; timer.toggleRunningState()})
-                {
-                    Text("Finish Workout")
-                        .fontWeight(.bold)
-                }
-                .buttonStyle(SuperButton())
-                .padding(.top, 55.0)
-                
+                buildSuperButton(label: "Finish Workout")
                                                    
             } else if settings.desiredRounds <= self.roundsComplete {
                 //Button(action: {self.roundsComplete = 0}) {
@@ -132,9 +133,7 @@ struct ContentView: View {
                             .stroke(Color( press ? .yellow : .blue), lineWidth: 8)
                             .frame(width: 350, height: 88)
                     )
-                    //                                                .onLongPressGesture(minimumDuration: 2) {
-    //                                                    self.roundsComplete = 0
-    //                                                }
+
                     .gesture(
                         LongPressGesture(minimumDuration: 2.0).onChanged { value in
                             self.tap = true
@@ -152,18 +151,10 @@ struct ContentView: View {
 
                                               
                } else {
-                Button(action: {self.roundsComplete += 1})
-                {
-                    Text("New Round")
-                        .fontWeight(.bold)
-                }
-                .buttonStyle(SuperButton())
-                .padding(.top, 55.0)
-                   
+                buildSuperButton(label: "New Round")
                }
                 
-                //end SuperButton
-                
+                //end SuperButton 2.0
                
                 
                 Spacer()
