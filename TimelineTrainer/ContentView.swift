@@ -67,10 +67,9 @@ struct ContentView: View {
                                     .font(Font.title.weight(.bold))
                                     .foregroundColor(Color("TrainerGreen"))
                                                }
-                                             Spacer()
-                                           }
-                                       }
-               
+                     Spacer()
+                       }
+                       }
                     }
                 .contentShape(Rectangle())
                 .onTapGesture{
@@ -78,6 +77,8 @@ struct ContentView: View {
                                    }
                                    .padding(.bottom, 55.0)
                 //end rounds counters
+                
+                //Text-based round counter
                 VStack {
                     if self.roundsComplete != settings.desiredRounds {
                         Text("\(self.roundsComplete)/\(settings.desiredRounds) COMPLETE")
@@ -111,55 +112,55 @@ struct ContentView: View {
                 .padding(.top, 55.0)
                 
                                                    
-                                        } else if settings.desiredRounds <= self.roundsComplete {
-                                            //Button(action: {self.roundsComplete = 0}) {
-                                            Text("Hold to Reset")
-                                                .font(.largeTitle)
-                                                .fontWeight(.bold)
-                                                .foregroundColor(Color("TrainerRed"))
-                                                .frame(width: 350, height: 88)
-                                                
-                                                .overlay(
-                                                RoundedRectangle(cornerRadius: 50)
-                                                .stroke(Color("TrainerRed"), lineWidth: 6)
-                                                .frame(width: 350, height: 88)
-                                                )
-                                                
-                                                .overlay(
-                                                    RoundedRectangle(cornerRadius: 50)
-                                                        .trim(from: tap ? 0.001 : 1, to: 1)
-                                                        .stroke(Color( press ? .yellow : .blue), lineWidth: 8)
-                                                        .frame(width: 350, height: 88)
-                                                )
-                                                //                                                .onLongPressGesture(minimumDuration: 2) {
-//                                                    self.roundsComplete = 0
-//                                                }
-                                                .gesture(
-                                                    LongPressGesture(minimumDuration: 2.0).onChanged { value in
-                                                        self.tap = true
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
-                                                            self.tap = false
-                                                        }
-                                                    }
-                                                    .onEnded { value in
-                                                        self.press.toggle(); self.roundsComplete = 0
-                                                    }
-                                                )
-                                            
-                                        
-                                                .padding(.top, 55.0)
+            } else if settings.desiredRounds <= self.roundsComplete {
+                //Button(action: {self.roundsComplete = 0}) {
+                Text("Hold to Reset")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color("TrainerRed"))
+                    .frame(width: 350, height: 88)
+                    
+                    .overlay(
+                    RoundedRectangle(cornerRadius: 50)
+                    .stroke(Color("TrainerRed"), lineWidth: 6)
+                    .frame(width: 350, height: 88)
+                    )
+                    
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 50)
+                            .trim(from: tap ? 0.001 : 1, to: 1)
+                            .stroke(Color( press ? .yellow : .blue), lineWidth: 8)
+                            .frame(width: 350, height: 88)
+                    )
+                    //                                                .onLongPressGesture(minimumDuration: 2) {
+    //                                                    self.roundsComplete = 0
+    //                                                }
+                    .gesture(
+                        LongPressGesture(minimumDuration: 2.0).onChanged { value in
+                            self.tap = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.1) {
+                                self.tap = false
+                            }
+                        }
+                        .onEnded { value in
+                            self.press.toggle(); self.roundsComplete = 0
+                        }
+                    )
+                
+            
+                    .padding(.top, 55.0)
 
                                               
-                                           } else {
-                                            Button(action: {self.roundsComplete += 1})
-                                            {
-                                                Text("New Round")
-                                                    .fontWeight(.bold)
-                                            }
-                                            .buttonStyle(SuperButton())
-                                            .padding(.top, 55.0)
-                                               
-                                           }
+               } else {
+                Button(action: {self.roundsComplete += 1})
+                {
+                    Text("New Round")
+                        .fontWeight(.bold)
+                }
+                .buttonStyle(SuperButton())
+                .padding(.top, 55.0)
+                   
+               }
                 
                 //end SuperButton
                 
