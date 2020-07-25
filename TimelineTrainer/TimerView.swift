@@ -107,6 +107,53 @@ struct TimerView: View {
     }
 }
 
+struct TimerViewCompact: View {
+    @ObservedObject var timer: TimerView.Timer
+    let timePublisher = Foundation.Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    init(
+        target: TimerView.Timer.Target? = nil,
+        onStart: ((TimeInterval)->())? = nil,
+        onUpdate: ((TimeInterval)->())? = nil,
+        onPause: ((TimeInterval)->())? = nil,
+        onResume: ((TimeInterval)->())? = nil,
+        onEnd: ((TimeInterval)->())? = nil
+    ) {
+        self.timer = TimerView.Timer(
+            target: target,
+            onStart: onStart,
+            onUpdate: onUpdate,
+            onPause: onPause,
+            onResume: onResume,
+            onEnd: onEnd
+        )
+    }
+    
+    init(timer: TimerView.Timer) {
+        self.timer = timer
+    }
+    
+    var body: some View {
+        VStack(spacing: 10) {
+     
+            Text("\(self.timer.timeComponents, formatter: TimerView.Timer.formatter)")
+                .fontWeight(.semibold)
+                .padding(.vertical, 10.0)
+                .font(.system(size: 20, design: .monospaced))
+                   .frame(width: UIScreen.main.bounds.size.width / 1.1,
+                         height: 20,
+                         alignment: .center)
+                       .foregroundColor(Color("TrainerGreen"))
+        }
+        .onReceive(timePublisher) { _ in
+            self.timer.update()
+        }
+        .onAppear {
+            self.timer.start()
+        }
+    }
+}
+
 extension TimerView {
     class Timer: ObservableObject {
         private var startDate: Date

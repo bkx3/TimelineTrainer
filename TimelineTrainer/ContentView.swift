@@ -11,6 +11,9 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @Environment(\.horizontalSizeClass) var sizeClass
+
+    
     @State var showSettings: Bool = false
     @State var viewState = CGSize.zero
     @State var roundsComplete = 0
@@ -57,10 +60,20 @@ struct ContentView: View {
                 
                 Spacer()
                 //timer
-                TimerView(timer: timer)
-                    .onTapGesture{
-                        advanceRounds()
-                                       }
+                
+                VStack {
+                    if sizeClass == .compact {
+                        TimerViewCompact(timer: timer)
+                        .onTapGesture{
+                            advanceRounds()
+                    }
+                    } else {
+                        TimerView(timer: timer)
+                        .onTapGesture{
+                            advanceRounds()
+                    }
+                }
+                }
                 //end timer
                 
                 //rounds counters
@@ -299,6 +312,12 @@ struct ContentView_Previews: PreviewProvider {
 
                ContentView()
                   .environment(\.colorScheme, .dark)
+            
+            ContentView()
+                .previewLayout(.device)
+                .previewDevice("iPhone 11 Pro")
+                        .previewDevice(PreviewDevice(rawValue: "iPhone 11 Pro"))
+                        .previewDisplayName("iPhone 11 Pro")
             }
     }
 }
