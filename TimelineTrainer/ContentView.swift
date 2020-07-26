@@ -8,6 +8,7 @@
 
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
     
@@ -20,6 +21,8 @@ struct ContentView: View {
     
     @State var workoutStatus = "preWorkout"
     //three states: preWorkout, inWorkout and postWorkout. Use this to simplify SuperButton status?
+    @State var audioPlayer:AVAudioPlayer?
+    @State var isPlaying : Bool = false
 
     @ObservedObject var settings = Settings()
     @ObservedObject var timer = TimerView.Timer()
@@ -168,7 +171,15 @@ struct ContentView: View {
                }
                 
                 //end SuperButton 2.0
-               
+                
+                VStack {
+                    Button(action:
+    //                        self.isPlaying.toggle() ;
+                        Sounds.playSounds(soundfile: "Doot1.m4a"))
+                    {
+                        Text("Doot")
+                    }
+                }
                 
                 Spacer()
                 

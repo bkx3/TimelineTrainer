@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		401351A324CCF6A200C53D44 /* Sounds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401351A224CCF6A200C53D44 /* Sounds.swift */; };
+		401351A524CCF73100C53D44 /* Doot1.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 401351A424CCF73100C53D44 /* Doot1.m4a */; };
+		4018018224CD059500FC23C1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4018018024CD058E00FC23C1 /* AVFoundation.framework */; };
+		4018018324CD059500FC23C1 /* AVFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4018018024CD058E00FC23C1 /* AVFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4087495E24B0443E0016CA3B /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4087495D24B0443E0016CA3B /* TimerView.swift */; };
 		AB42049C249C395D00CFE3FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42049B249C395D00CFE3FE /* AppDelegate.swift */; };
 		AB42049E249C395D00CFE3FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB42049D249C395D00CFE3FE /* SceneDelegate.swift */; };
@@ -17,7 +21,24 @@
 		E2DE6D0B249E6F30001CFEF5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DE6D0A249E6F30001CFEF5 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4018018424CD059500FC23C1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4018018324CD059500FC23C1 /* AVFoundation.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		401351A224CCF6A200C53D44 /* Sounds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sounds.swift; sourceTree = "<group>"; };
+		401351A424CCF73100C53D44 /* Doot1.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = Doot1.m4a; sourceTree = "<group>"; };
+		4018018024CD058E00FC23C1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4087495D24B0443E0016CA3B /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		AB420498249C395D00CFE3FE /* TimelineTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimelineTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB42049B249C395D00CFE3FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -35,17 +56,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4018018224CD059500FC23C1 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4018017F24CD058D00FC23C1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4018018024CD058E00FC23C1 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4018018524CD05AE00FC23C1 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				401351A424CCF73100C53D44 /* Doot1.m4a */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		AB42048F249C395D00CFE3FE = {
 			isa = PBXGroup;
 			children = (
 				AB42049A249C395D00CFE3FE /* TimelineTrainer */,
 				AB420499249C395D00CFE3FE /* Products */,
+				4018017F24CD058D00FC23C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -63,7 +102,9 @@
 				AB42049B249C395D00CFE3FE /* AppDelegate.swift */,
 				AB42049D249C395D00CFE3FE /* SceneDelegate.swift */,
 				AB42049F249C395D00CFE3FE /* ContentView.swift */,
+				401351A224CCF6A200C53D44 /* Sounds.swift */,
 				4087495D24B0443E0016CA3B /* TimerView.swift */,
+				4018018524CD05AE00FC23C1 /* Sounds */,
 				E2DE6D0A249E6F30001CFEF5 /* SettingsView.swift */,
 				AB4204A1249C395F00CFE3FE /* Assets.xcassets */,
 				AB4204A6249C395F00CFE3FE /* LaunchScreen.storyboard */,
@@ -91,6 +132,7 @@
 				AB420494249C395D00CFE3FE /* Sources */,
 				AB420495249C395D00CFE3FE /* Frameworks */,
 				AB420496249C395D00CFE3FE /* Resources */,
+				4018018424CD059500FC23C1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -139,6 +181,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				401351A524CCF73100C53D44 /* Doot1.m4a in Resources */,
 				AB4204A8249C395F00CFE3FE /* LaunchScreen.storyboard in Resources */,
 				AB4204A5249C395F00CFE3FE /* Preview Assets.xcassets in Resources */,
 				AB4204A2249C395F00CFE3FE /* Assets.xcassets in Resources */,
@@ -155,6 +198,7 @@
 				AB42049C249C395D00CFE3FE /* AppDelegate.swift in Sources */,
 				E2DE6D0B249E6F30001CFEF5 /* SettingsView.swift in Sources */,
 				4087495E24B0443E0016CA3B /* TimerView.swift in Sources */,
+				401351A324CCF6A200C53D44 /* Sounds.swift in Sources */,
 				AB42049E249C395D00CFE3FE /* SceneDelegate.swift in Sources */,
 				AB4204A0249C395D00CFE3FE /* ContentView.swift in Sources */,
 			);
